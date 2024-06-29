@@ -6,6 +6,12 @@ Understand the fundamentals of neural networks by building a simple feedforward 
 ## Project
 Implement a simple feedforward neural network using only Python and NumPy.
 
+## Skills Learned
+Backpropagation, gradient descent, activation functions.
+
+## Technologies
+Pure Python, NumPy.
+
 ## Steps to Complete the Project
 
 ### 1. Understand the Basics of Neural Networks
