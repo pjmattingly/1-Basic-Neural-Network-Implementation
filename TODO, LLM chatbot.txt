@@ -536,6 +536,341 @@ TODO, LLM chatbot
 
             TODO, before development, review: "Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep learning. MIT press."
                 first, checking on the structure of artificial neurons; Why are they structured the way they are?
+                    "Some of the earliest learning algorithms we recognize today were intended
+                    to be computational models of biological learning, that is, models of how
+                    learning happens or could happen in the brain."
+
+                    "As a result, one of the names
+                    that deep learning has gone by is artificial neural networks (ANNs)."
+
+                    "While the kinds of neural networks used for machine
+                    learning have sometimes been used to understand brain function (Hinton and
+                    Shallice, 1991), they are generally not designed to be realistic models of
+                    biological function."
+
+                    "multiple levels of composition" ?
+                        "e modern term “deep learning” goes beyond the neuroscientific
+                        perspective on the current breed of machine learning models. It appeals to a
+                        more general principle of learning multiple levels of composition, which can be
+                        applied in machine learning frameworks that are not necessarily neurally
+                        inspired."
+
+                    --
+
+                    "e training algorithm used to adapt the weights of the
+                    ADALINE was a special case of an algorithm called stochastic gradient
+                    descent."
+
+                    "Slightly modified versions of the stochastic gradient descent algorithm
+                    remain the dominant training algorithms for deep learning models today."
+
+                    --
+
+                    "Most neural networks today are based
+                    on a model neuron called the rectified linear unit."
+
+                    "e simplified modern version
+                    was developed incorporating ideas from many viewpoints, with Nair and
+                    Hinton (2010) and Glorot et al. (2011a) citing neuroscience as an influence,
+                    and Jarrett et al. (2009) citing more engineering-oriented influences"
+
+                    and so modern logical neurons are "evolved" from earlier more complex representations, as they seem to be the simplest logical constructs that perform well at the kinds of tasks associated with machine learning
+                        "We know that actual neurons compute very different functions
+                        than modern rectified linear units, but greater neural realism has not yet led to
+                        an improvement in machine learning performance."
+
+                    --
+
+                    "Another major accomplishment of the connectionist movement was the
+                    successful use of back-propagation to train deep neural networks with internal
+                    representations and the popularization of the back-propagation algorithm
+                    (Rumelhart et al., 1986a; LeCun, 1987)."
+
+                    --
+
+                    " Hochreiter and Schmidhuber (1997)
+                    introduced the long short-term memory (LSTM) network to resolve some of
+                    these difficulties."
+
+                    "Today, the LSTM is widely used for many sequence modeling
+                    tasks, including many natural language processing tasks at Google."
+
+                    --
+
+                    "At this time, deep neural networks outperformed competing AI
+                    systems based on other machine learning technologies as well as hand-designed
+                    functionality."
+
+                    "e third wave began with a focus
+                    on new unsupervised learning techniques and the ability of deep models to
+                    generalize well from small datasets, but today there is more interest in much
+                    older supervised learning algorithms and the ability of deep models to leverage
+                    large labeled datasets."
+
+                    ----
+
+                    "Another crowning achievement of deep learning is its extension to the
+                    domain of reinforcement learning."
+
+                    "In the context of reinforcement learning,
+                    an autonomous agent must learn to perform a task by trial and error, without
+                    any guidance from the human operator."
+
+                    ----
+
+                    "By adding more layers and more units within a layer, a deep network
+                    can represent functions of increasing complexity"
+
+                    "Most tasks that consist of
+                    mapping an input vector to an output vector, and that are easy for a person to
+                    do rapidly, can be accomplished via deep learning, given sufficiently large
+                    models and sufficiently large datasets of labeled training examples"
+
+                    ----
+
+                    "Deep feedforward networks, also called feedforward neural networks, or
+                    multilayer perceptrons (MLPs), are the quintessential deep learning models."
+
+                    "e goal of a feedforward network is to approximate some function f*. For
+                    example, for a classifier, y = f*(x) maps an input x to a category y. A feedforward
+                    network defines a mapping y = f(x;
+                    θ) and learns the value of the parameters
+                    θ
+                    that result in the best function approximation."
+
+                    --
+
+                    "ese models are called feedforward because information flows through the
+                    function being evaluated from x, through the intermediate computations used
+                    to define f, and finally to the output y."
+
+                    "ere are no feedback connections in
+                    which outputs of the model are fed back into itself."
+
+                    --
+
+                    "Feedforward neural networks are called networks because they are typically
+                    represented by composing together many different functions. e model is
+                    associated with a directed acyclic graph describing how the functions are
+                    composed together. For example, we might have three functions f(1), f(2), and
+                    f(3) connected in a chain, to form f(x) = f(3)(f(2)(f(1)(x))). ese chain
+                    structures are the most commonly used structures of neural networks"
+
+                    " In this
+                    case, f(1) is called the first layer of the network, f(2) is called the second layer,
+                    and so on. e overall length of the chain gives the depth of the model."
+
+                    "e final layer of a
+                    feedforward network is called the output layer."
+
+                    --
+
+                    "During neural network
+                    training, we drive f(x) to match f*(x). e training data provides us with noisy,
+                    approximate examples of f*(x) evaluated at different training points."
+
+                    "e learning algorithm must decide how to use those layers to
+                    produce the desired output, but the training data do not say what each
+                    individual layer should do."
+
+                    "Instead, the learning algorithm must decide how to
+                    use these layers to best implement an approximation of f*."
+
+                    "Because the training
+                    data does not show the desired output for each of these layers, they are called
+                    hidden layers."
+
+                    --
+
+                    "Finally, these networks are called neural because they are loosely inspired by
+                    neuroscience. Each hidden layer of the network is typically vector valued. e
+                    dimensionality of these hidden layers determines the width of the model. Each
+                    element of the vector may be interpreted as playing a role analogous to a
+                    neuron"
+
+                    "Rather than thinking of the layer as representing a single vector-to-
+                    vector function, we can also think of the layer as consisting of many units that
+                    act in parallel, each representing a vector-to-scalar function."
+
+                    "Each unit
+                    resembles a neuron in the sense that it receives input from many other units and
+                    computes its own activation value."
+
+                    "e choice of the functions
+                    f(i)(x) used to compute these representations is also loosely guided by
+                    neuroscientific observations about the functions that biological neurons
+                    compute."
+
+                    --
+
+                    "It is best to think of feedforward networks as
+                    function approximation machines that are designed to achieve statistical
+                    generalization, occasionally drawing some insights from what we know about
+                    the brain, rather than as models of brain function."
+
+                    --
+
+                    "To extend linear models to represent nonlinear functions of x, we can apply
+                    the linear model not to x itself but to a transformed input
+                    ϕ(x), where
+                    ϕ is a
+                    nonlinear transformation."
+
+                    e strategy of deep learning is to learn
+                    ϕ
+
+                    "In this approach, we have
+                    a model y = f(x;
+                    θ, w) =
+                    ϕ(x;
+                    θ)⊤w. We now have parameters
+                    θ that
+                    we use to learn
+                    ϕ from a broad class of functions, and parameters w
+                    that map from
+                    ϕ(x) to the desired output."
+
+                    "is is an example of a
+                    deep feedforward network, with
+                    ϕ defining a hidden layer."
+
+                    " In this
+                    approach, we parametrize the representation as
+                    ϕ(x;
+                    θ) and use the
+                    optimization algorithm to find the
+                    θ that corresponds to a good
+                    representation"
+
+                    " If we wish, this approach can capture the benefit of
+                    the first approach by being highly generic—we do so by using a very
+                    broad family
+                    ϕ(x;
+                    θ)."
+
+                    "Human practitioners can encode their
+                    knowledge to help generalization by designing families
+                    ϕ(x;
+                    θ) that
+                    they expect will perform well."
+
+                    --
+
+                    "Feedforward networks are the application of this
+                    principle to learning deterministic mappings from x to y that lack feedback
+                    connections"
+
+                    --
+
+                    "First, training a feedforward network requires making many of the
+                    same design decisions as are necessary for a linear model: choosing the
+                    optimizer, the cost function, and the form of the output units. "
+
+                    "We review these
+                    basics of gradient-based learning, then proceed to confront some of the design
+                    decisions that are unique to feedforward networks."
+
+                    "Feedforward networks have
+                    introduced the concept of a hidden layer, and this requires us to choose the
+                    activation functions that will be used to compute the hidden layer values."
+
+                    "We
+                    must also design the architecture of the network, including how many layers the
+                    network should contain, how these layers should be connected to each other,
+                    and how many units should be in each layer."
+
+                    "Learning in deep neural networks
+                    requires computing the gradients of complicated functions"
+
+                    "We present the
+                    back-propagation algorithm and its modern generalizations, which can be used
+                    to efficiently compute these gradients"
+
+                    ----
+
+                    "Now we must choose the form of our model, f(x;
+                    θ). Suppose that we
+                    choose a linear model, with
+                    θ consisting of w and b."
+
+                    "We can minimize J(
+                    θ) in closed form with respect to w and b using the normal
+                    equations."
+
+                    Here (pg 224) they talk about a function f, s.t. f(x; w, b) = (x^T)w + b, which are the weights and biases associated with a neuron. And so, each neuron is structured this way to be the simplest linear model with parameters: weights (w) and biases(b). The "knobs" that can be changed are `w` and `b` which serve different purposes in the linear model, and where the model can't be made simpler and still be a "fully configurable" linear model.
+
+                    --
+
+                    "We use that strategy here, by defining h = g(W⊤x + c), where W provides the
+                    weights of a linear transformation and c the biases. Previously, to describe a
+                    linear regression model, we used a vector of weights and a scalar bias parameter
+                    to describe an affine transformation from an input vector to an output scalar.
+                    Now, we describe an affine transformation from a vector x to a vector h, so an
+                    entire vector of bias parameters is needed."
+
+                    "e activation function g is typically
+                    chosen to be a function that is applied element-wise, with hi = g(x⊤W:,i + ci)"
+
+                    "In modern neural networks, the default recommendation is to use the rectified
+                    linear unit, or ReLU (Jarrett et al., 2009; Nair and Hinton, 2010; Glorot et al.,
+                    2011a), defined by the activation function g(z) = max{0, z} ..."
+
+                    and then the activation function is the bit that takes the linear model of the neuron as input and outputs non-linearity. Or the activation function introduces non-linearity to the linear model of the neuron as described by `f(x; w, b) = (x^T)w + b`.
+
+                    --
+
+                    "Much as a Turing
+                    machine’s memory needs only to be able to store 0 or 1 states, we can build a
+                    universal function approximator from rectified linear functions."
+
+                    --
+
+                    and stopped at pg 228, as then it starts talking about how to make the neural network function, and we want to just describe the smallest bit for now.
+                DONE
+                    modern logical neurons are "evolved" from earlier more complex representations, more closely related to biological neurons
+                    and modern (artificial) neurons are seemingly the simplest logical constructs that can be used to construct a universal function approximater
+                    the simplest neural network that we're going to look at is the "Deep feedforward network"
+                    where:
+                        ```
+                        The goal of a feedforward network is to approximate some function f*.
+                        For example, for a classifier, y = f*(x) maps an input x to a category y.
+                        A feedforward network defines a mapping y = f(x; θ) and learns the value of the parameters θ
+                        that result in the best function approximation.
+                        ```
+                    Where such a network is composed of:
+                        input layer
+                        hidden layers
+                        output layer
+                    Where each layer is a set of neurons that are densly connected with the next.
+
+                    "It is best to think of feedforward networks as
+                    function approximation machines that are designed to achieve statistical
+                    generalization, occasionally drawing some insights from what we know about
+                    the brain, rather than as models of brain function."
+
+                    "To extend linear models to represent nonlinear functions of x, we can apply the linear model not to x itself but to a transformed input ϕ(x), where ϕ is a nonlinear transformation."
+
+                    " ... training a feedforward network requires making many of the
+                    same design decisions as are necessary for a linear model: choosing the
+                    optimizer, the cost function, and the form of the output units. "
+
+                    "Feedforward networks have introduced the concept of a hidden layer, and this requires us to choose the activation functions that will be used to compute the hidden layer values."
+
+                    And so each neuron is structured as a linear model (f(x; w, b) = (x^T)w + b; where `w` is a vector of weights and `b` is a vector of biases), which acts as input to a non-linear activation function `g`. Which then fulfills the "extend linear models to represent nonlinear functions", via "apply the linear model not to x itself but to a transformed input ϕ(x), where ϕ is a nonlinear transformation". Where the linear model is the neuron and the activation function is the "nonlinear transformation".
+
+                    They recommend using "rectified linear unit, or ReLU (Jarrett et al., 2009; Nair and Hinton, 2010; Glorot et al., 2011a), defined by the activation function g(z) = max{0, z}" as the activation function.
+
+                    And "Much as a Turing machine’s memory needs only to be able to store 0 or 1 states, we can build a universal function approximator from rectified linear functions."
+
+                --
+
+                then with the theory out of the way, we can move on to the mechanics.
+
+
+
+
+
+
 
         
         next,
