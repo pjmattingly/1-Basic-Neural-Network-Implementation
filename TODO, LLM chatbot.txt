@@ -866,36 +866,63 @@ TODO, LLM chatbot
 
                 then with the theory out of the way, we can move on to the mechanics.
 
+                --
 
+                Artificial neuron
+                https://en.wikipedia.org/wiki/Artificial_neuron
+                    "An artificial neuron is a mathematical function conceived as a model of biological neurons in a neural network. Artificial neurons are the elementary units of artificial neural networks."
 
+                    "The artificial neuron is a function that receives one or more inputs, applies weights to these inputs, and sums them to produce an output. "
 
+                    "Usually, each input is separately weighted, and the sum is often added to a term known as a bias (loosely corresponding to the threshold potential), before being passed through a non-linear function known as an activation function or transfer function ... "
 
+                    "The transfer functions usually have a sigmoid shape, but they may also take the form of other non-linear functions, piecewise linear functions, or step functions. They are also often monotonically increasing, continuous, differentiable and bounded."
 
+                    For a given artificial neuron k, let there be m + 1 inputs with signals x0 through xm and weights wk0 through wkm. Usually, the x0 input is assigned the value +1, which makes it a bias input with wk0 = bk. This leaves only m actual inputs to the neuron: from x1 to xm.
 
-        
+                    The output of the kth neuron is:
+
+                        y k = φ ( ∑ j = 0 m w k j x j ) {\displaystyle y_{k}=\varphi \left(\sum _{j=0}^{m}w_{kj}x_{j}\right)}
+
+                    Where φ {\displaystyle \varphi } (phi) is the transfer function (commonly a threshold function).
+
+                    --
+
+                    "Any finite state machine can be simulated by a MCP neural network.[4] Furnished with an infinite tape, MCP neural networks can simulate any Turing machine."
+
+                    --
+
+                    pseudo code
+                        see:
+                        https://en.wikipedia.org/wiki/Artificial_neuron#Pseudocode_algorithm
+                
+                --
+
         next,
-            
-        then,
-            
-        then,
-            referencing the code structure to begin development
+            implementation of the Neuron class
                 see:
                 https://github.com/pjmattingly/1-Basic-Neural-Network-Implementation/blob/main/1-Initialize-the-Network/Code_Structure.md
-            
-        
-
+        then,
+            more reading and theory before implementing classes Layer and Network
         
 
 ----------------
 
 TODO
-    TODO, before development, review: "Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep learning. MIT press."
-        see:
-        C:\Users\peter-work\Calibre Library\Goodfellow, Ian; Bengio, Yoshua; Cou\Deep Learning (19)\Deep Learning - Goodfellow, Ian; Bengio, Yoshua.pdf
 
 ----------------
 
 NOTE
+    Note, header "first, checking on the structure of artificial neurons; Why are they structured the way they are?" describes the motivation for and structure of the artificial neuron
+
+    --
+
+    Note, pg 228+ in "Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep learning. MIT press." provides further information on how to make the example feedforward network function
+        see:
+        C:\Users\peter-work\Calibre Library\Goodfellow, Ian; Bengio, Yoshua; Cou\Deep Learning (19)\Deep Learning - Goodfellow, Ian; Bengio, Yoshua.pdf
+
+    --
+
     Note, chatgpt chat
         see:
         https://chatgpt.com/c/5380ffd7-2b2c-4244-82f1-2ee744e67254?model=gpt-4o
@@ -995,5 +1022,9 @@ NOTE
 ----------------
 
 DONE
+    TODO, before development, review: "Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep learning. MIT press."
+        see:
+        C:\Users\peter-work\Calibre Library\Goodfellow, Ian; Bengio, Yoshua; Cou\Deep Learning (19)\Deep Learning - Goodfellow, Ian; Bengio, Yoshua.pdf
+    DONE
 
 # tail
