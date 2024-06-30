@@ -478,6 +478,59 @@ TODO, LLM chatbot
         --
 
         then doing initial setup before starting coding
+            TODO file tracking
+                see:
+                https://github.com/pjmattingly/1-Basic-Neural-Network-Implementation/blob/main/TODO%2C%20LLM%20chatbot.txt
+
+            Install Poetry
+                they recommend using pipx
+                    see:
+                    https://python-poetry.org/docs/
+
+                then pipx recommends using "scoop" to install
+                    see:
+                    https://pipx.pypa.io/stable/installation/
+
+                then scoop is another package manager like chocolatey
+                    see:
+                    https://scoop.sh/
+
+                    and:
+                    https://en.wikipedia.org/wiki/Chocolatey
+
+                    and:
+                    https://en.wikipedia.org/wiki/Scoop_Package_Manager
+
+                then, since there's a new package manager, what sort of shell should I be using for development?
+                    see:
+                    https://www.reddit.com/r/learnprogramming/comments/zbssou/good_terminals_for_windows/
+
+                    and:
+                    https://www.reddit.com/r/learnprogramming/comments/1ag3g86/what_do_developers_using_windows_use_as_shell/
+
+                    and:
+                    https://en.wikipedia.org/wiki/Windows_Terminal
+                DONE
+                    then consensus seems to be Windows Terminal, instead of the venerable cmder
+
+                and Windows Terminal installed scoop without a hitch, and seems to have standard Linux commands, and tab completion
+            DONE
+
+            then, getting Windows Terminal to recognize git
+            DONE
+                see:
+                https://dev.to/yuta28/customize-windows-terminal-and-git-operations-4el2
+
+        
+        next,
+            setting up numpy and pytest in "1-Initialize-the-Network" 
+        then,
+            TODO, before development, review: "Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep learning. MIT press."
+        then,
+            referencing the code structure to begin development
+                see:
+                https://github.com/pjmattingly/1-Basic-Neural-Network-Implementation/blob/main/1-Initialize-the-Network/Code_Structure.md
+            
         
 
         
@@ -587,7 +640,7 @@ NOTE
         Project: Deploy your chatbot on a cloud platform, ensure it is scalable and reliable.
         Skills Learned: Cloud deployment, containerization (Docker), orchestration (Kubernetes).
         Technologies: AWS/GCP/Azure, Docker, Kubernetes.
-    
+
 ----------------
 
 DONE
