@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "1-initialize-the-network"
+version = "0.1.0"
+description = ""
+authors = ["Peter Mattingly <pjmattingly@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+numpy = "^2.0.0"
+pytest = "^8.2.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

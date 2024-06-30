@@ -521,11 +521,27 @@ TODO, LLM chatbot
                 see:
                 https://dev.to/yuta28/customize-windows-terminal-and-git-operations-4el2
 
+            --
+
+            [06.30.24]
+
+            --
+
+            setting up numpy and pytest in "1-Initialize-the-Network"
+            DONE
+                see:
+                https://python-poetry.org/docs/basic-usage/
+
+            --
+
+            TODO, before development, review: "Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep learning. MIT press."
+                first, checking on the structure of artificial neurons; Why are they structured the way they are?
+
         
         next,
-            setting up numpy and pytest in "1-Initialize-the-Network" 
+            
         then,
-            TODO, before development, review: "Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep learning. MIT press."
+            
         then,
             referencing the code structure to begin development
                 see:
