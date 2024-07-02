@@ -901,12 +901,51 @@ TODO, LLM chatbot
             using numpy and pytest for development during this step
             theory needed for the "Neuron" class
                 And so each neuron is structured as a linear model (f(x; w, b) = (x^T)w + b; where `w` is a vector of weights and `b` is a vector of biases), which acts as input to a non-linear activation function `g`. Which then fulfills the "extend linear models to represent nonlinear functions", via "apply the linear model not to x itself but to a transformed input ϕ(x), where ϕ is a nonlinear transformation". Where the linear model is the neuron and the activation function is the "nonlinear transformation".
+
+        --
+
+        TODO, 1, Initialize the Network
+            see:
+            https://github.com/pjmattingly/1-Basic-Neural-Network-Implementation/blob/main/README.md
+
+            and:
+            https://github.com/pjmattingly/1-Basic-Neural-Network-Implementation/blob/main/1-Initialize-the-Network/Code_Structure.md
+
+            and:
+            https://github.com/pjmattingly/1-Basic-Neural-Network-Implementation/blob/main/1-Initialize-the-Network/1_initialize_the_network/Neuron.py
+
+            --
+
+            then type checking, how does modern Python do it?
+            DONE
+                annotations
+                    see:
+                    https://realpython.com/python-type-checking/
+
+                and:
+                    https://docs.python.org/3/library/typing.html
+            
+            hmm but that doesn't throw a type error when doing something like:
+                `Neuron("something")`
+            
+            rather they're type "hints" and for linters, not enforcement for specific types passed in
+                see:
+                https://stackoverflow.com/questions/67412233/python-type-hinting-not-generating-error-for-wrong-type-when-running-the-code
+
+            and so when doing exceptions for bad input, we have to check it manually
+                see:
+                https://realpython.com/python-type-checking/#dynamic-typing
+
+            --
+
+
+
+
             
 
         next,
-            implementation of the Neuron class
-                see:
-                https://github.com/pjmattingly/1-Basic-Neural-Network-Implementation/blob/main/1-Initialize-the-Network/Code_Structure.md
+            setting up first tests for Neuron
+                
         then,
             more reading and theory before implementing classes Layer and Network
         
