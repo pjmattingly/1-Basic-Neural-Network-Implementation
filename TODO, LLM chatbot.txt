@@ -861,15 +861,14 @@ TODO, LLM chatbot
                     They recommend using "rectified linear unit, or ReLU (Jarrett et al., 2009; Nair and Hinton, 2010; Glorot et al., 2011a), defined by the activation function g(z) = max{0, z}" as the activation function.
 
                     And "Much as a Turing machine’s memory needs only to be able to store 0 or 1 states, we can build a universal function approximator from rectified linear functions."
+            DONE
 
-                --
+            then with the theory out of the way, we can move on to the mechanics.
 
-                then with the theory out of the way, we can move on to the mechanics.
+            --
 
-                --
-
-                Artificial neuron
-                https://en.wikipedia.org/wiki/Artificial_neuron
+            Artificial neuron
+            https://en.wikipedia.org/wiki/Artificial_neuron
                     "An artificial neuron is a mathematical function conceived as a model of biological neurons in a neural network. Artificial neurons are the elementary units of artificial neural networks."
 
                     "The artificial neuron is a function that receives one or more inputs, applies weights to these inputs, and sums them to produce an output. "
@@ -895,8 +894,14 @@ TODO, LLM chatbot
                     pseudo code
                         see:
                         https://en.wikipedia.org/wiki/Artificial_neuron#Pseudocode_algorithm
-                
-                --
+        DONE
+            using Poetry for Python package management
+            installed scoop to install Windows packages
+            using Windows Terminal for a terminal app
+            using numpy and pytest for development during this step
+            theory needed for the "Neuron" class
+                And so each neuron is structured as a linear model (f(x; w, b) = (x^T)w + b; where `w` is a vector of weights and `b` is a vector of biases), which acts as input to a non-linear activation function `g`. Which then fulfills the "extend linear models to represent nonlinear functions", via "apply the linear model not to x itself but to a transformed input ϕ(x), where ϕ is a nonlinear transformation". Where the linear model is the neuron and the activation function is the "nonlinear transformation".
+            
 
         next,
             implementation of the Neuron class
