@@ -29,7 +29,6 @@ class Neuron:
         if inputs < 0:
             raise ValueError("Argument 'inputs' must be a non-negative integer.")
         
-        #self._weights = [random.random() for _ in range(inputs)]
         self._weights = np.random.rand(inputs)
         self._bias = random.random()
         self._activation_function = self._relu #TODO, more activation functions
@@ -41,7 +40,10 @@ class Neuron:
         except TypeError:
             raise TypeError("Argument 'inputs' must be an iterable.")
         else:
-            return self._activation_function( np.sum(np.dot(np.array(inputs), self._weights)) )
+            #the weighted sum of the inputs through the activation function
+            return self._activation_function( 
+                np.sum(np.dot(np.array(inputs), self._weights)) 
+                )
 
     def _relu(self, _in : float):
         if not isinstance(_in, numbers.Real):
