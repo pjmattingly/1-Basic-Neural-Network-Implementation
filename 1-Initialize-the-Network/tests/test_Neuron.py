@@ -17,5 +17,4 @@ class Test__init__:
 class Test_relu:
     def test_bad_input(self, inst):
         with pytest.raises(TypeError):
-            #Neuron._relu("some bad input")
             inst._relu("some bad input")
