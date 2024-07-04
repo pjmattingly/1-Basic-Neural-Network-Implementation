@@ -948,8 +948,176 @@ TODO, LLM chatbot
 
             to get import working had to change the name of the directory containing Neuron
                 Poetry automatically made: "1_initialize_the_network" instead of something that could be imported
+            
+            --
 
+            take a closer look at modern coding practices, should I be making better use of autocomplete or AI?
+            what's the standard tool chain for developing in Python?
+                A modern toolchain for Python development typically includes tools for package management, environment management, code editing, testing, code quality, version control, and continuous integration/continuous deployment (CI/CD). Here’s a comprehensive setup:
 
+                ### 1. **Package and Environment Management: Poetry**
+                - **Description:** Poetry simplifies dependency management and project setup.
+                - **Features:**
+                - Manages dependencies and virtual environments.
+                - Automatically resolves and installs dependencies.
+                - Uses `pyproject.toml` for project configuration.
+                - **Usage:**
+                ```bash
+                # Install Poetry
+                pip install poetry
+
+                # Initialize a new project
+                poetry init
+
+                # Add dependencies
+                poetry add numpy pytest
+
+                # Install dependencies
+                poetry install
+
+                # Activate the virtual environment
+                poetry shell
+                ```
+
+                ### 2. **Code Editor/IDE: Visual Studio Code (VS Code)**
+                - **Description:** A powerful, lightweight code editor with numerous extensions.
+                - **Features:**
+                - Integrated terminal and Git support.
+                - Extensions for Python (e.g., Python extension by Microsoft).
+                - Debugging support, linting, IntelliSense.
+                - **Extensions:**
+                - Python (by Microsoft)
+                - Pylance (for type checking and language features)
+                - GitLens (for enhanced Git capabilities)
+                - Prettier (for code formatting)
+
+                ### 3. **Testing: pytest**
+                - **Description:** A flexible and powerful testing framework.
+                - **Features:**
+                - Simple syntax for writing tests.
+                - Extensive plugin support.
+                - Supports fixtures, parameterized tests, and more.
+                - **Usage:**
+                ```bash
+                poetry add --dev pytest
+
+                # Run tests
+                pytest
+                ```
+
+                ### 4. **Code Quality: flake8, black, isort**
+                - **flake8:** For linting and style guide enforcement.
+                ```bash
+                poetry add --dev flake8
+                # Run flake8
+                flake8 your_project/
+                ```
+                - **black:** For automatic code formatting.
+                ```bash
+                poetry add --dev black
+                # Format code
+                black your_project/
+                ```
+                - **isort:** For sorting imports.
+                ```bash
+                poetry add --dev isort
+                # Sort imports
+                isort your_project/
+                ```
+
+                ### 5. **Type Checking: mypy**
+                - **Description:** Static type checker for Python.
+                - **Usage:**
+                ```bash
+                poetry add --dev mypy
+                # Run mypy
+                mypy your_project/
+                ```
+
+                ### 6. **Version Control: Git**
+                - **Description:** Distributed version control system.
+                - **Usage:**
+                ```bash
+                # Initialize a new Git repository
+                git init
+
+                # Stage and commit changes
+                git add .
+                git commit -m "Initial commit"
+
+                # Set up a remote repository (e.g., GitHub)
+                git remote add origin https://github.com/yourusername/yourrepository.git
+                git push -u origin master
+                ```
+
+                ### 7. **Continuous Integration/Continuous Deployment (CI/CD): GitHub Actions**
+                - **Description:** Automate workflows for building, testing, and deploying code.
+                - **Usage:**
+                - Create a `.github/workflows` directory in your repository.
+                - Add a workflow file (e.g., `ci.yml`) for setting up CI/CD pipelines.
+
+                ```yaml
+                name: CI
+
+                on:
+                    push:
+                    branches: [ master ]
+                    pull_request:
+                    branches: [ master ]
+
+                jobs:
+                    build:
+                    runs-on: ubuntu-latest
+
+                    steps:
+                    - uses: actions/checkout@v2
+                    - name: Set up Python
+                        uses: actions/setup-python@v2
+                        with:
+                        python-version: '3.8'
+                    - name: Install dependencies
+                        run: |
+                        pip install poetry
+                        poetry install
+                    - name: Run tests
+                        run: |
+                        poetry run pytest
+                    - name: Lint with flake8
+                        run: |
+                        poetry run flake8 your_project/
+                    - name: Format with black
+                        run: |
+                        poetry run black --check your_project/
+                    - name: Sort imports with isort
+                        run: |
+                        poetry run isort --check-only your_project/
+                ```
+
+                ### 8. **Documentation: Sphinx**
+                - **Description:** Documentation generator for Python projects.
+                - **Usage:**
+                ```bash
+                poetry add --dev sphinx
+                # Initialize Sphinx
+                sphinx-quickstart docs
+                ```
+
+                ### Summary
+
+                By using this modern toolchain, you can ensure that your Python development environment is robust, efficient, and follows best practices. Here's a quick summary:
+
+                - **Package Management:** Poetry
+                - **Code Editor/IDE:** Visual Studio Code
+                - **Testing:** pytest
+                - **Code Quality:** flake8, black, isort
+                - **Type Checking:** mypy
+                - **Version Control:** Git
+                - **CI/CD:** GitHub Actions
+                - **Documentation:** Sphinx
+
+                This setup will help you manage dependencies, maintain code quality, automate testing and deployment, and create comprehensive documentation for your neural network project.
+            DONE
+                pretty much what I have now, but things like GitLens, code quality tools, and CI/CD seem like overkill for this project
 
 
 
@@ -967,8 +1135,7 @@ TODO, LLM chatbot
                 https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring
 
         then,
-            take a closer look at modern coding practices, should I be making better use of autocomplete or AI?
-            what's the standard tool chain for developing in Python?
+            
                 
         then,
             more reading and theory before implementing classes Layer and Network
