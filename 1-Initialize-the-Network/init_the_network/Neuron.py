@@ -1,6 +1,7 @@
 import random
 from typing import List
 import numbers
+import numpy as np
 
 class Neuron:
     """
@@ -33,11 +34,17 @@ class Neuron:
         self._bias = random.random()
         self._activation_function = self._relu #TODO, more activation functions
 
-    def forward_pass(inputs : List[float]) -> float:
-        pass
+    def forward_pass(self, inputs : List[float]) -> float:
+        #https://stackoverflow.com/a/1952481
+        try:
+            iter(inputs)
+        except TypeError:
+            raise TypeError("Argument 'inputs' must be an iterable.")
+        else:
+            return self._activation_function( np.sum(np.dot(np.array(inputs), self._weights)) )
 
     def _relu(self, _in : float):
         if not isinstance(_in, numbers.Real):
             raise TypeError("Argument '_in' must be a real number.")
-        
+
         return max([0, _in])
