@@ -1,5 +1,6 @@
 import random
 from typing import List
+import numbers
 
 class Neuron:
     """
@@ -35,4 +36,7 @@ class Neuron:
         pass
 
     def _relu(_in : float):
+        if not isinstance(_in, numbers.Real):
+            raise TypeError("Argument '_in' must be a real number.")
+        
         return max([0, _in])

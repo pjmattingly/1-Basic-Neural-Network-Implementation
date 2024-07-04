@@ -9,3 +9,8 @@ class Test__init__:
     def test_bad_input_not_positive_int(self):
         with pytest.raises(ValueError):
             Neuron(-1)
+
+class Test_relu:
+    def test_bad_input(self):
+        with pytest.raises(TypeError):
+            Neuron._relu("some bad input")
