@@ -28,7 +28,8 @@ class Neuron:
         if inputs < 0:
             raise ValueError("Argument 'inputs' must be a non-negative integer.")
         
-        self._weights = [random.random() for _ in range(inputs)]
+        #self._weights = [random.random() for _ in range(inputs)]
+        self._weights = np.random.rand(inputs)
         self._bias = random.random()
         self._activation_function = self._relu
 
