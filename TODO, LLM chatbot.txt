@@ -1119,22 +1119,13 @@ TODO, LLM chatbot
             DONE
                 pretty much what I have now, but things like GitLens, code quality tools, and CI/CD seem like overkill for this project
 
+            --
 
+            ChatGPT will do doctstrings on code review =D
+
+            --
 
             
-
-        next,
-            
-
-        then,
-            docstrings are best practices, is there a way to automatically create them?
-                see:
-                https://www.datacamp.com/tutorial/docstrings-python
-
-                maybe:
-                https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring
-
-        then,
             
                 
         then,
