@@ -36,7 +36,7 @@ class Neuron:
     def forward_pass(inputs : List[float]) -> float:
         pass
 
-    def _relu(_in : float):
+    def _relu(self, _in : float):
         if not isinstance(_in, numbers.Real):
             raise TypeError("Argument '_in' must be a real number.")
         
