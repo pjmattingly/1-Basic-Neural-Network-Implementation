@@ -1,4 +1,5 @@
 import random
+from typing import List
 
 class Neuron:
     """
@@ -28,3 +29,6 @@ class Neuron:
         
         self._weights = [random.random() for _ in range(inputs)]
         self._bias = random.random()
+
+    def forward_pass(inputs : List[float]) -> float:
+        pass
