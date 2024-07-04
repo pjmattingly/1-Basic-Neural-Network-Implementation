@@ -29,6 +29,10 @@ class Neuron:
         
         self._weights = [random.random() for _ in range(inputs)]
         self._bias = random.random()
+        self._activation_function = self._relu
 
     def forward_pass(inputs : List[float]) -> float:
         pass
+
+    def _relu(_in : float):
+        return max([0, _in])
