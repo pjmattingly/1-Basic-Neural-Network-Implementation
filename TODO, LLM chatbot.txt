@@ -938,13 +938,37 @@ TODO, LLM chatbot
 
             --
 
+            [07.03.24]
+
+            --
+
+            setting up first tests for Neuron
+                see:
+                https://docs.pytest.org/en/8.2.x/getting-started.html#getstarted
+
+            to get import working had to change the name of the directory containing Neuron
+                Poetry automatically made: "1_initialize_the_network" instead of something that could be imported
+
+
 
 
 
             
 
         next,
-            setting up first tests for Neuron
+            
+
+        then,
+            docstrings are best practices, is there a way to automatically create them?
+                see:
+                https://www.datacamp.com/tutorial/docstrings-python
+
+                maybe:
+                https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring
+
+        then,
+            take a closer look at modern coding practices, should I be making better use of autocomplete or AI?
+            what's the standard tool chain for developing in Python?
                 
         then,
             more reading and theory before implementing classes Layer and Network
