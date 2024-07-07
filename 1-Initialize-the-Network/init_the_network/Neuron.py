@@ -34,6 +34,9 @@ class Neuron:
         self._activation_function = self._relu #TODO, more activation functions
 
     def forward_pass(self, inputs : List[float]) -> float:
+        if isinstance(inputs, str):
+            raise TypeError("Argument 'inputs' must be a list of numbers.")
+        
         #https://stackoverflow.com/a/1952481
         try:
             iter(inputs)
