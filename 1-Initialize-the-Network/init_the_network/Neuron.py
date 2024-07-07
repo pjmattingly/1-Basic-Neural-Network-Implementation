@@ -48,7 +48,7 @@ class Neuron:
             TypeError: If 'inputs' is not an iterable of numeric elements.
             ValueError: If 'inputs' contains non-finite numeric elements.
         """
-        
+
         if len(inputs) != len(self._weights):
             raise ValueError(
                 "Argument 'inputs' must be an iterable of the same size as the \
@@ -78,7 +78,7 @@ class Neuron:
         #the weighted sum of the inputs with the bias through the activation function
         return self._activation_function(np.dot(na_inputs, self._weights) + self._bias)
 
-    def _relu(self, x : float):
+    def _relu(self, x : float) -> float:
         """
         Apply the ReLU activation function.
 
@@ -96,3 +96,25 @@ class Neuron:
             raise TypeError("Argument 'x' must be a real number.")
 
         return max(0, x)
+    
+    def derivative_of_activation_function(self, x: float) -> float:
+        """
+        Compute the derivative of the ReLU activation function.
+
+        Parameters:
+            x (float): Input value to the activation function.
+
+        Returns:
+            float: Derivative of the ReLU function. Returns 1 if x > 0, otherwise returns 0.
+        """
+
+        if not isinstance(x, numbers.Real):
+            raise TypeError("Argument 'x' must be a real number.")
+
+        if x > 0:
+            return 1
+        else:
+            # The derivative of ReLU is not defined at x = 0; conventionally, \
+            # it is set to 0.
+            # Reference: https://stackoverflow.com/a/76396054
+            return 0
