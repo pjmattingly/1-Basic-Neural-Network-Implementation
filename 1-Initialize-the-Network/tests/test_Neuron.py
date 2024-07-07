@@ -23,7 +23,7 @@ class Test_relu:
 class Test_forward_pass:
     def test_string_input(self, inst):
         with pytest.raises(TypeError):
-            inst.forward_pass("some bad input")
+            inst.forward_pass("str")
 
     def test_noniterable_input(self, inst):
         with pytest.raises(TypeError):
@@ -54,3 +54,7 @@ class Test_forward_pass:
             inst.forward_pass([1, 2, np.newaxis])
 
             #see: https://numpy.org/doc/stable/reference/constants.html#numpy.newaxis
+
+    def test_wrong_size_inputs(self, inst):
+        with pytest.raises(ValueError):
+            inst.forward_pass([1, 2, 3, 4])
