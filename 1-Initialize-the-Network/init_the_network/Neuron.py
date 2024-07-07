@@ -36,8 +36,8 @@ class Neuron:
     def forward_pass(self, inputs : List[float]) -> float:
         if len(inputs) != len(self._weights):
             raise ValueError(
-                "Argument 'inputs' must be an iterable of the same size as the Neuron."
-                )
+                "Argument 'inputs' must be an iterable of the same size as the \
+                Neuron's weights.")
         
         if isinstance(inputs, str):
             raise TypeError(
@@ -48,23 +48,12 @@ class Neuron:
         try:
             iter(inputs)
         except TypeError:
-            raise TypeError("Argument 'inputs' must be an iterable.")
-        
-        na_inputs = np.array(inputs)
-        
-        #https://stackoverflow.com/a/33043793
-        try:
-            are_all_numeric = np.isfinite(na_inputs).all()
-        except TypeError:
-            raise ValueError(
+            raise TypeError(
                 "Argument 'inputs' must be an iterable of numeric elements."
                 )
         
-        if not are_all_numeric:
-            raise ValueError(
-                "Argument 'inputs' must be an iterable of finite numeric elements."
-                )
-        
+        na_inputs = np.array(inputs)
+
         if (not np.issubdtype(na_inputs.dtype, np.number)) or \
         not np.isfinite(na_inputs).all():
             raise ValueError(
@@ -87,7 +76,7 @@ class Neuron:
         Raises:
             TypeError: If 'x' is not a real number.
         """
-        
+
         if not isinstance(x, numbers.Real):
             raise TypeError("Argument 'x' must be a real number.")
 

@@ -1125,7 +1125,15 @@ TODO, LLM chatbot
 
             --
 
-            
+            adding relu as the default activation function
+                see:
+                https://en.wikipedia.org/wiki/Rectifier_(neural_networks)
+                https://docs.python.org/3/library/functions.html#max
+
+        next,
+            testing for Neuron.forward_pass
+        then,
+            code review with ChatGPT for relu and forward_pass
             
                 
         then,
