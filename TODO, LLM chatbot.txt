@@ -1130,10 +1130,32 @@ TODO, LLM chatbot
                 https://en.wikipedia.org/wiki/Rectifier_(neural_networks)
                 https://docs.python.org/3/library/functions.html#max
 
-        next,
-            testing for Neuron.forward_pass
-        then,
+            --
+
+            [07.06.24]
+
+            --
+
             code review with ChatGPT for relu and forward_pass
+                ChatGPT came up with this for checking if the iterable passed to forward_pass was all numeric or not.
+                    see:
+                    https://numpy.org/doc/stable/reference/generated/numpy.issubdtype.html
+                While stackoverflow took this approach.
+                    see:
+                    https://stackoverflow.com/questions/37996471/element-wise-test-of-numpy-array-is-numeric
+                    and:
+                    https://stackoverflow.com/questions/1247486/list-comprehension-vs-map
+                    and:
+                    https://stackoverflow.com/questions/911871/detect-if-a-numpy-array-contains-at-least-one-non-numeric-value
+            DONE
+
+            testing for Neuron.forward_pass
+            DONE
+
+        next,
+            
+        then,
+            
             
                 
         then,
