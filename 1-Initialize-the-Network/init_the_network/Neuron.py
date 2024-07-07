@@ -42,9 +42,24 @@ class Neuron:
             iter(inputs)
         except TypeError:
             raise TypeError("Argument 'inputs' must be an iterable.")
-        else:
-            #the weighted sum of the inputs through the activation function
-            return self._activation_function( 
+        
+        na_inputs = np.array(inputs)
+        
+        #https://stackoverflow.com/a/33043793
+        try:
+            are_all_numeric = np.isfinite(na_inputs).all()
+        except TypeError:
+            raise ValueError(
+                "Argument 'inputs' must be an iterable of numeric elements."
+                )
+        
+        if not are_all_numeric:
+            raise ValueError(
+                "Argument 'inputs' must be an iterable of finite numeric elements."
+                )
+        
+        #the weighted sum of the inputs through the activation function
+        return self._activation_function( 
                 np.sum(np.dot(np.array(inputs), self._weights)) 
                 )
 
