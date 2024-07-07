@@ -34,6 +34,21 @@ class Neuron:
         self._activation_function = self._relu #TODO, more activation functions
 
     def forward_pass(self, inputs : List[float]) -> float:
+        """
+        Compute the forward pass for the neuron.
+
+        Parameters:
+            inputs (List[float]): Input values for the neuron.
+
+        Returns:
+            float: Output of the neuron after applying the activation function.
+
+        Raises:
+            ValueError: If 'inputs' does not have the same length as the weights.
+            TypeError: If 'inputs' is not an iterable of numeric elements.
+            ValueError: If 'inputs' contains non-finite numeric elements.
+        """
+        
         if len(inputs) != len(self._weights):
             raise ValueError(
                 "Argument 'inputs' must be an iterable of the same size as the \
