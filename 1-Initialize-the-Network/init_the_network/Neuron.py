@@ -70,6 +70,9 @@ class Neuron:
             raise ValueError(
                 "Argument 'inputs' must be an iterable of finite numeric elements."
                 )
+        
+        #the weighted sum of the inputs with the bias through the activation function
+        return self._activation_function(np.dot(na_inputs, self._weights) + self._bias)
 
     def _relu(self, x : float):
         """
