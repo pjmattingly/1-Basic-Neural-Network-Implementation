@@ -35,7 +35,9 @@ class Neuron:
 
     def forward_pass(self, inputs : List[float]) -> float:
         if isinstance(inputs, str):
-            raise TypeError("Argument 'inputs' must be a list of numbers.")
+            raise TypeError(
+                "Argument 'inputs' must be an iterable of numeric elements."
+                )
         
         #https://stackoverflow.com/a/1952481
         try:
@@ -60,11 +62,22 @@ class Neuron:
         
         #the weighted sum of the inputs through the activation function
         return self._activation_function( 
-                np.sum(np.dot(np.array(inputs), self._weights)) 
-                )
+            np.sum(np.dot(na_inputs, self._weights)) 
+            )
 
-    def _relu(self, _in : float):
-        if not isinstance(_in, numbers.Real):
-            raise TypeError("Argument '_in' must be a real number.")
+    def _relu(self, input : float):
+        if not isinstance(input, numbers.Real):
+            raise TypeError("Argument 'input' must be a real number.")
 
-        return max([0, _in])
+        return max([0, input])
+    
+n = Neuron(3)
+n.forward_pass([1, 2, 3])
+print("--")
+#n.forward_pass("test")
+#n.forward_pass(["a", "b", "c"])
+#n.forward_pass([1, 2, "c"])
+#n.forward_pass([1, 2, np.inf])
+#n.forward_pass([1, 2, np.nan])
+#n.forward_pass([1, 2, None])
+#n.forward_pass([1, 2, np.newaxis])
