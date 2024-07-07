@@ -34,6 +34,11 @@ class Neuron:
         self._activation_function = self._relu #TODO, more activation functions
 
     def forward_pass(self, inputs : List[float]) -> float:
+        if len(inputs) != len(self._weights):
+            raise ValueError(
+                "Argument 'inputs' must be an iterable of the same size as the Neuron."
+                )
+        
         if isinstance(inputs, str):
             raise TypeError(
                 "Argument 'inputs' must be an iterable of numeric elements."
@@ -72,7 +77,7 @@ class Neuron:
         return max([0, input])
     
 n = Neuron(3)
-n.forward_pass([1, 2, 3])
+#n.forward_pass([1, 2, 3, 4])
 print("--")
 #n.forward_pass("test")
 #n.forward_pass(["a", "b", "c"])
