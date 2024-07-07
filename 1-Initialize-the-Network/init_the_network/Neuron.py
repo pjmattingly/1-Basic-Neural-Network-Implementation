@@ -70,8 +70,21 @@ class Neuron:
             np.sum(np.dot(na_inputs, self._weights)) 
             )
 
-    def _relu(self, input : float):
-        if not isinstance(input, numbers.Real):
-            raise TypeError("Argument 'input' must be a real number.")
+    def _relu(self, x : float):
+        """
+        Apply the ReLU activation function.
 
-        return max([0, input])
+        Parameters:
+            x (float): Input value to the activation function.
+
+        Returns:
+            float: Output of the ReLU activation function.
+
+        Raises:
+            TypeError: If 'x' is not a real number.
+        """
+        
+        if not isinstance(x, numbers.Real):
+            raise TypeError("Argument 'x' must be a real number.")
+
+        return max(0, x)
