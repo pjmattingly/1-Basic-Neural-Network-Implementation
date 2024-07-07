@@ -65,10 +65,11 @@ class Neuron:
                 "Argument 'inputs' must be an iterable of finite numeric elements."
                 )
         
-        #the weighted sum of the inputs through the activation function
-        return self._activation_function( 
-            np.sum(np.dot(na_inputs, self._weights)) 
-            )
+        if (not np.issubdtype(na_inputs.dtype, np.number)) or \
+        not np.isfinite(na_inputs).all():
+            raise ValueError(
+                "Argument 'inputs' must be an iterable of finite numeric elements."
+                )
 
     def _relu(self, x : float):
         """
