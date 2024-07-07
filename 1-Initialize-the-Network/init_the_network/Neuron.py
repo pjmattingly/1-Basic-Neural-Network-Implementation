@@ -75,14 +75,3 @@ class Neuron:
             raise TypeError("Argument 'input' must be a real number.")
 
         return max([0, input])
-    
-n = Neuron(3)
-#n.forward_pass([1, 2, 3, 4])
-print("--")
-#n.forward_pass("test")
-#n.forward_pass(["a", "b", "c"])
-#n.forward_pass([1, 2, "c"])
-#n.forward_pass([1, 2, np.inf])
-#n.forward_pass([1, 2, np.nan])
-#n.forward_pass([1, 2, None])
-#n.forward_pass([1, 2, np.newaxis])
