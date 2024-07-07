@@ -1,6 +1,7 @@
 import pytest
 from init_the_network.Neuron import Neuron
 import numpy as np
+import math
 
 @pytest.fixture
 def inst():
@@ -58,3 +59,13 @@ class Test_forward_pass:
     def test_wrong_size_inputs(self, inst):
         with pytest.raises(ValueError):
             inst.forward_pass([1, 2, 3, 4])
+
+    def test_forward_pass_math(self, inst):
+        #sanity check in case there a change in the way the forward pass is done \
+        #in the future
+        inputs = [1, 1, 1]
+        test_out = inst._activation_function(np.dot(np.array(inputs), inst._weights) + inst._bias)
+        obv_out = inst.forward_pass(inputs)
+
+        #see: https://stackoverflow.com/a/68763927
+        assert math.isclose(test_out, obv_out ,rel_tol=.01)
