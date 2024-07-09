@@ -1152,14 +1152,21 @@ TODO, LLM chatbot
             testing for Neuron.forward_pass
             DONE
 
+            --
+
+            [07.08.24]
+
+            --
+
+            testing for `derivative_of_activation_function`
+
+                
         next,
             
         then,
-            
-            
-                
-        then,
-            more reading and theory before implementing classes Layer and Network
+            moving on to implementing the Layer class
+                see:
+                https://github.com/pjmattingly/1-Basic-Neural-Network-Implementation/blob/main/1-Initialize-the-Network/Code_Structure.md#layer-class
         
 
 ----------------

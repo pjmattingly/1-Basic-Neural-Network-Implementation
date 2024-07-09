@@ -68,4 +68,15 @@ class Test_forward_pass:
         obv_out = inst.forward_pass(inputs)
 
         #see: https://stackoverflow.com/a/68763927
-        assert math.isclose(test_out, obv_out ,rel_tol=.01)
+        assert math.isclose(test_out, obv_out, rel_tol=.01)
+
+class Test_derivative_of_activation_function:
+    def test_bad_input(self, inst):
+        with pytest.raises(TypeError):
+            inst.derivative_of_activation_function("some bad input")
+
+    def test_postive_input(self, inst):
+        assert inst.derivative_of_activation_function(1) == 1
+
+    def test_not_postive_input(self, inst):
+        assert inst.derivative_of_activation_function(-1) == 0
