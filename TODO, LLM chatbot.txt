@@ -1160,14 +1160,22 @@ TODO, LLM chatbot
 
             testing for `derivative_of_activation_function`
 
+            code review for `derivative_of_activation_function` done previously.
+
+            --
+
+            Then onto the Layer class, a collection of Neurons
+
+            Then the first issue, we're assuming densly connected layers, where (for hidden and output layers) the previous layers' neuron's connect to each neuron in a given Layer, and so we need two parameters for the Layer
+                1) The size (in Neurons) of the Layer
+                2) The number of inputs to the Layer
+            Then for inputs we can just pass in numbers to avoid having to worry about passing in objects, which will be helpful for the input-layer that doesn't get its values from Neuron's
+
                 
         next,
-            
-        then,
-            moving on to implementing the Layer class
+            finish up implementing the Layer class for now, finishing testing, and making changes to Neuron.forward_pass
                 see:
                 https://github.com/pjmattingly/1-Basic-Neural-Network-Implementation/blob/main/1-Initialize-the-Network/Code_Structure.md#layer-class
-        
 
 ----------------
 
@@ -1176,6 +1184,21 @@ TODO
 ----------------
 
 NOTE
+    Note, helpful Neuron visualization diagram
+        see:
+        https://www.researchgate.net/figure/A-diagram-to-show-the-work-of-a-neuron-input-x-weights-w-bias-b-activation-function-f_fig1_323775654
+    
+    --
+
+    Note, a project for visualizing Neural Networks
+        see:
+        https://github.com/HarisIqbal88/PlotNeuralNet
+
+        also:
+        https://datascience.stackexchange.com/questions/14899/how-to-draw-deep-learning-network-architecture-diagrams
+
+    --
+
     Note, header "first, checking on the structure of artificial neurons; Why are they structured the way they are?" describes the motivation for and structure of the artificial neuron
 
     --
