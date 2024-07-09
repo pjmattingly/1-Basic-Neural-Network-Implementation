@@ -1,4 +1,7 @@
+#from init_the_network.Neuron import Neuron
 from Neuron import Neuron
+from typing import List
+import numpy as np
 
 class Layer:
     """
@@ -34,3 +37,45 @@ class Layer:
         
         self._num_inputs = inputs
         self._neurons = [Neuron(self._num_inputs) for _ in range(size)]
+
+    def forward_pass(self, inputs : List[float]) -> List[float]:
+        """
+        Perform a forward pass through the layer.
+
+        Parameters:
+            inputs (List[float]): Input values for the neurons in the layer.
+
+        Returns:
+            List[float]: Output values from each neuron in the layer.
+
+        Raises:
+            TypeError: If 'inputs' is not an iterable of numeric elements.
+            ValueError: If 'inputs' is not of the expected length or contains \
+                non-finite numeric elements.
+        """
+
+        #https://stackoverflow.com/a/1952481
+        try:
+            iter(inputs)
+        except TypeError:
+            raise TypeError(
+                "Argument 'inputs' must be an iterable of numeric elements."
+                )
+        
+        if len(inputs) != self._num_inputs:
+            raise ValueError(
+                f"Argument 'inputs' must be an iterable of size {self._num_inputs}."
+                )
+        
+        na_inputs = np.array(inputs)
+
+        if not np.issubdtype(na_inputs.dtype, np.number):
+            raise TypeError(
+                "Argument 'inputs' must be an iterable of numeric elements."
+                )
+        if not np.isfinite(na_inputs).all():
+            raise ValueError(
+                "Argument 'inputs' must be an iterable of finite numeric elements."
+                )
+
+        return [neuron.forward_pass(inputs) for neuron in self._neurons]
