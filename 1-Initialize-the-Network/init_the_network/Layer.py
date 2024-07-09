@@ -1,5 +1,8 @@
-#from init_the_network.Neuron import Neuron
-from Neuron import Neuron
+#allow for relative importing for pytest, and absolute importing when running directly
+try:
+    from .Neuron import Neuron
+except ImportError:
+    from Neuron import Neuron
 from typing import List
 import numpy as np
 
