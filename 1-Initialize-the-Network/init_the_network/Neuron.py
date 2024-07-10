@@ -50,6 +50,14 @@ class Neuron:
             ValueError: If 'inputs' contains non-finite numeric elements.
         """
 
+        #https://stackoverflow.com/a/1952481
+        try:
+            iter(inputs)
+        except TypeError:
+            raise TypeError(
+                "Argument 'inputs' must be an iterable of numeric elements."
+                )
+
         if len(inputs) != len(self._weights):
             raise ValueError(
                 "Argument 'inputs' must be an iterable of the same size as the \
@@ -60,18 +68,13 @@ class Neuron:
                 "Argument 'inputs' must be an iterable of numeric elements."
                 )
         
-        #https://stackoverflow.com/a/1952481
-        try:
-            iter(inputs)
-        except TypeError:
+        na_inputs = np.array(inputs)
+
+        if not np.issubdtype(na_inputs.dtype, np.number):
             raise TypeError(
                 "Argument 'inputs' must be an iterable of numeric elements."
                 )
-        
-        na_inputs = np.array(inputs)
-
-        if (not np.issubdtype(na_inputs.dtype, np.number)) or \
-        not np.isfinite(na_inputs).all():
+        if not np.isfinite(na_inputs).all():
             raise ValueError(
                 "Argument 'inputs' must be an iterable of finite numeric elements."
                 )
