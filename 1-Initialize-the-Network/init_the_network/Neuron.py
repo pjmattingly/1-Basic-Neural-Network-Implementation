@@ -32,8 +32,7 @@ class Neuron:
         self._weights = np.random.rand(inputs)
         self._bias = random.random()
         self._activation_function = self._relu #TODO, more activation functions
-
-    #TODO, change input checking here to match approach in Layer
+    
     def forward_pass(self, inputs : List[float]) -> float:
         """
         Compute the forward pass for the neuron.
