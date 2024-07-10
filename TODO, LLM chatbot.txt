@@ -1171,11 +1171,18 @@ TODO, LLM chatbot
                 2) The number of inputs to the Layer
             Then for inputs we can just pass in numbers to avoid having to worry about passing in objects, which will be helpful for the input-layer that doesn't get its values from Neuron's
 
-                
-        next,
-            finish up implementing the Layer class for now, finishing testing, and making changes to Neuron.forward_pass
-                see:
-                https://github.com/pjmattingly/1-Basic-Neural-Network-Implementation/blob/main/1-Initialize-the-Network/Code_Structure.md#layer-class
+            --
+
+            [07.09.24]
+
+            --
+
+            resolving `#TODO, change input checking here to match approach in Layer` in Neuron..forward_pass()
+
+            next,
+                testing for Network.__init__
+            then,
+                implementing more of Network
 
 ----------------
 
