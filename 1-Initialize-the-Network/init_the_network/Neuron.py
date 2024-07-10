@@ -45,9 +45,9 @@ class Neuron:
             float: Output of the neuron after applying the activation function.
 
         Raises:
-            ValueError: If 'inputs' does not have the same length as the weights.
             TypeError: If 'inputs' is not an iterable of numeric elements.
-            ValueError: If 'inputs' contains non-finite numeric elements.
+            ValueError: If 'inputs' is not of the expected length or contains \
+                non-finite numeric elements.
         """
 
         #https://stackoverflow.com/a/1952481
