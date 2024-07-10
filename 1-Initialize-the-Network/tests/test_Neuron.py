@@ -31,11 +31,11 @@ class Test_forward_pass:
             inst.forward_pass(0)
 
     def test_nonnumeric_input_1(self, inst):
-        with pytest.raises(ValueError):
+        with pytest.raises(TypeError):
             inst.forward_pass(["a", "b", "c"])
 
     def test_nonnumeric_input_2(self, inst):
-        with pytest.raises(ValueError):
+        with pytest.raises(TypeError):
             inst.forward_pass([1, 2, "c"])
 
     def test_special_nonnumeric_input_1(self, inst):
@@ -47,11 +47,11 @@ class Test_forward_pass:
             inst.forward_pass([1, 2, np.nan])
 
     def test_special_nonnumeric_input_3(self, inst):
-        with pytest.raises(ValueError):
+        with pytest.raises(TypeError):
             inst.forward_pass([1, 2, None])
 
     def test_special_nonnumeric_input_4(self, inst):
-        with pytest.raises(ValueError):
+        with pytest.raises(TypeError):
             inst.forward_pass([1, 2, np.newaxis])
 
             #see: https://numpy.org/doc/stable/reference/constants.html#numpy.newaxis
