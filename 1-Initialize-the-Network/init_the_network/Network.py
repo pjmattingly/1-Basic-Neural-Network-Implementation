@@ -62,3 +62,50 @@ class Network:
                 #each subsequent layer has inputs equal to the number of Neurons in \
                 # the previous layer.
                 self._network.append( Layer(architecture[i-1], num_neurons) )
+    
+    def forward_pass(self, inputs : List[float]) -> List[float]:
+        """
+        Perform a forward pass through the neural network.
+
+        Parameters:
+            inputs (List[float]): Input values for the input layer of the network.
+
+        Returns:
+            List[float]: Output values from the final layer of the network.
+
+        Raises:
+            TypeError: If 'inputs' is not a list of numeric elements.
+            ValueError: If 'inputs' is not of the expected length or contains non-finite numeric elements.
+        """
+
+        #https://stackoverflow.com/a/1952481
+        try:
+            iter(inputs)
+        except TypeError:
+            raise TypeError(
+                "Argument 'inputs' must be an iterable of numeric elements."
+                )
+        
+        input_layer_size = self._network[0].get_size()
+        
+        if len(inputs) != input_layer_size:
+            raise ValueError(
+                f"Argument 'inputs' must be an iterable of size {input_layer_size}."
+                )
+        
+        na_inputs = np.array(inputs)
+
+        if not np.issubdtype(na_inputs.dtype, np.number):
+            raise TypeError(
+                "Argument 'inputs' must be an iterable of numeric elements."
+                )
+        if not np.isfinite(na_inputs).all():
+            raise ValueError(
+                "Argument 'inputs' must be an iterable of finite numeric elements."
+                )
+        
+        outputs = inputs
+        for layer in self._network:
+            outputs = layer.forward_pass(outputs)
+
+        return outputs
