@@ -1177,16 +1177,91 @@ TODO, LLM chatbot
 
             --
 
-            resolving `#TODO, change input checking here to match approach in Layer` in Neuron..forward_pass()
+            resolving `#TODO, change input checking here to match approach in Layer` in Neuron.forward_pass()
+
+            --
+
+            [07.11.24]
+
+            --
+
+            testing for Network.__init__
+            DONE
+
+            --
+
+            implementing Network.forward_pass
+                should negative inputs be allowed?
+                    see:
+                    https://www.researchgate.net/post/What-is-the-reason-of-choosing-negative-initial-conditions-in-Neural-network-system
+                DONE
+                    yes, standard practice to pre-process data to have "zero mean and unit variance"
+                        see:
+                        Bishop, C. M., & Nasrabadi, N. M. (2006). Pattern recognition and machine learning. New York: Springer.
+                        pg. 567
+
+                but then this implies that the weights and biases might be negative as well
+                    see:
+                    https://www.researchgate.net/post/What-is-the-reason-of-choosing-negative-initial-conditions-in-Neural-network-system
+
+                so, should Neuron be changed to randomly initiailize to N(0, 1)?
+                    see:
+                    https://stackoverflow.com/questions/78704896/how-weight-vector-behave-when-we-initialize-the-weight-to-0-in-case-of-perceptro
+                    https://stackoverflow.com/questions/44883861/initial-bias-values-for-a-neural-network
+                DONE
+                    yes
+                        see:
+                        https://www.coursera.org/lecture/neural-networks-deep-learning/random-initialization-XtFPI
+
+                        and:
+                        https://numpy.org/doc/stable/reference/random/generated/numpy.random.randn.html
+
+                And checking Neuron.__init__ it looks like I already have it that way, oops
+
+                But then this, says that the biases can be initialized to zero, and is desirable, and so why is that?
+                    see:
+                    https://www.coursera.org/lecture/neural-networks-deep-learning/random-initialization-XtFPI
+
+                    --
+
+                    see:
+                    https://stackoverflow.com/questions/44883861/initial-bias-values-for-a-neural-network
+                    https://forums.fast.ai/t/why-is-it-okay-to-set-the-bias-vector-up-with-zeros-and-not-the-weight-matrices/80759/2
+                DONE
+                    the consensus seems to be that the weights are the important bit for "breaking symmetry", and so random initialization of the biases can be neglected as they don't have a (significant) impact on "breaking symmetry"
+                        see:
+                        https://cs231n.github.io/neural-networks-2/
+
+
+
+
 
             next,
-                testing for Network.__init__
+                
             then,
                 implementing more of Network
 
 ----------------
 
 TODO
+    TODO, setup random "seed" for Neuron, Layer, and Network, so we can get reproducable results when testing
+        see:
+        https://github.com/pjmattingly/1-Basic-Neural-Network-Implementation/tree/main/1-Initialize-the-Network#practical-tips
+
+    TODO, take a closer look at the "symmetry breaking problem"
+        " And then b, it turns out that b does not have the symmetry problem, what's called the symmetry breaking problem."
+            see:
+            https://www.coursera.org/lecture/neural-networks-deep-learning/random-initialization-XtFPI
+
+        --
+
+        prior research
+            see:
+            https://stackoverflow.com/questions/59638646/what-does-it-mean-to-break-symmetry-in-the-context-of-neural-network-programm
+            and:
+            https://stackoverflow.com/questions/20027598/why-should-weights-of-neural-networks-be-initialized-to-random-numbers
+            https://ai.stackexchange.com/questions/6789/is-random-initialization-of-the-weights-the-only-choice-to-break-the-symmetry
+            https://proceedings.neurips.cc/paper_files/paper/2017/file/a96b65a721e561e1e3de768ac819ffbb-Paper.pdf
 
 ----------------
 
@@ -1311,6 +1386,23 @@ NOTE
         Project: Deploy your chatbot on a cloud platform, ensure it is scalable and reliable.
         Skills Learned: Cloud deployment, containerization (Docker), orchestration (Kubernetes).
         Technologies: AWS/GCP/Azure, Docker, Kubernetes.
+
+    --
+
+    Note, bibliography
+        Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep learning. MIT press.
+            see:
+            D:\c drive storage\Work\IT, LLM Chatbot\bib\Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep learning. MIT press.pdf
+
+        Bishop, C. M., & Nasrabadi, N. M. (2006). Pattern recognition and machine learning. New York: Springer.
+            see:
+            Bishop, C. M., & Nasrabadi, N. M. (2006). Pattern recognition and machine learning. New York Springer.pdf
+
+    --
+        
+    Note, dev dir
+        see:
+        D:\Github
 
 ----------------
 
