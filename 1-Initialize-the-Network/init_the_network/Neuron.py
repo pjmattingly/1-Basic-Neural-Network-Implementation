@@ -30,9 +30,9 @@ class Neuron:
             raise ValueError("Argument 'inputs' must be a non-negative integer.")
         
         self._weights = np.random.rand(inputs)
-        self._bias = random.random()
+        self._bias = 0
         self._activation_function = self._relu #TODO, more activation functions
-    
+
     def forward_pass(self, inputs : List[float]) -> float:
         """
         Compute the forward pass for the neuron.
