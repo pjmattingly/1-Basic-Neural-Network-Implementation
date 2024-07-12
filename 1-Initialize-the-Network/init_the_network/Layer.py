@@ -83,6 +83,9 @@ class Layer:
 
         return [neuron.forward_pass(inputs) for neuron in self._neurons]
     
-    def backward_pass():
+    def backward_pass(self):
         #PLACEHOLDER
         pass
+
+    def get_size(self):
+        return len(self._neurons)
