@@ -150,4 +150,80 @@ class Network:
         pass
 
     def _check_data(self, data):
-        pass
+        if data.get("x") is None:
+            raise TypeError( "Data should contain a key of 'x'." )
+
+        if data.get("y") is None:
+            raise TypeError( "Data should contain a key of 'y'." )
+        
+        if not len(data.get["x"]) == len(data.get["y"]):
+            raise ValueError("Data-sets 'x' and 'y' should be the same size.")
+        
+        if len(data.get["x"]) == 0 or len(data.get["y"]) == 0:
+            raise ValueError("Data-sets 'x' or 'y' should not be empty.")
+
+        na_x = np.array(data.get["x"])
+
+        if not np.issubdtype(na_x.dtype, np.number):
+            raise TypeError(
+                "Data-set 'x' should contain only numeric elements."
+                )
+        if not np.isfinite(na_x).all():
+            raise TypeError(
+                "Data-set 'x' should contain only finite numeric elements."
+                )
+        
+        na_y = np.array(data.get["y"])
+
+        if not np.issubdtype(na_y.dtype, np.number):
+            raise TypeError(
+                "Data-set 'x' should contain only numeric elements."
+                )
+        if not np.isfinite(na_y).all():
+            raise TypeError(
+                "Data-set 'x' should contain only finite numeric elements."
+                )
+        
+        x_lengths = set([len(x_sample) for x_sample in data.get["x"]])
+
+        if not len(x_lengths) == 1:
+            raise ValueError(
+                "All samples in data-set 'x' should have the same dimension."
+                )
+        
+        y_lengths = set([len(y_sample) for y_sample in data.get["y"]])
+
+        if not len(y_lengths) == 1:
+            raise ValueError(
+                "All samples in data-set 'y' should have the same dimension."
+                )
+        
+        #checking for duplicates; see: https://stackoverflow.com/q/11528078
+        sorted_x = np.sort(data.get["x"], axis=None)
+        if any(sorted_x[1:] == sorted_x[:-1]):
+            raise ValueError(
+                "Found duplicate entries in data-set 'x', please clean the data and \
+                    try again."
+                )
+        
+        sorted_y = np.sort(data.get["y"], axis=None)
+        if any(sorted_y[1:] == sorted_y[:-1]):
+            raise ValueError(
+                "Found duplicate entries in data-set 'y', please clean the data and \
+                    try again."
+                )
+        
+
+a = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [1, 2, 3],
+]
+s = np.sort(a, axis=None)
+print(s)
+print(s[:-1])
+print(s[1:])
+print(s[1:] == s[:-1])
+print(s[:-1][s[1:] == s[:-1]])
+s[:-1][s[1:] == s[:-1]]
+print(any(s[1:] == s[:-1]))
