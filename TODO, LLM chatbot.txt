@@ -1699,8 +1699,94 @@ TODO, LLM chatbot
                 should be a set of records of the form: {x: inputs; y: ouputs}
                 and only accepting numerical values for `inputs` and outputs`
 
-        next,
+            --
+
+            [07.16.24]
+
+            --
+
             implementing Network._check_data
+                chatgpt input on sanity checks for data
+                    ```
+                    When performing sanity checks on data that will be used to train a neural network, it is essential to ensure that the data is clean, well-formatted, and suitable for training. Here are several types of sanity checks you should consider:
+
+                    ### 1. **Basic Data Integrity Checks:**
+                    - **Non-Empty Data:** Ensure that the dataset is not empty.
+                    - **Correct Data Types:** Verify that all features and labels are of the expected data types (e.g., numerical, categorical).
+                    - **No Missing Values:** Check for and handle any missing values (e.g., NaNs or nulls).
+
+                    ### 2. **Shape and Dimension Checks:**
+                    - **Consistent Dimensions:** Ensure that all input features have consistent dimensions across samples.
+                    - **Label Alignment:** Verify that the number of labels matches the number of samples.
+
+                    ### 3. **Range and Value Checks:**
+                    - **Valid Range:** Check that numerical features fall within expected ranges (e.g., no negative values for features that should be non-negative).
+                    - **No Outliers:** Detect and handle outliers that may adversely affect model training.
+
+                    ### 4. **Distribution Checks:**
+                    - **Feature Distribution:** Examine the distribution of each feature to ensure they are as expected (e.g., normally distributed, uniformly distributed).
+                    - **Class Balance:** Check for class imbalance in classification tasks and consider techniques to handle it if necessary (e.g., oversampling, undersampling).
+
+                    ### 5. **Uniqueness and Redundancy Checks:**
+                    - **Duplicate Samples:** Identify and remove duplicate samples to avoid bias.
+                    - **Unique Identifiers:** Ensure any identifiers or indexes are unique and correctly assigned.
+
+                    ### 6. **Correlation and Multicollinearity:**
+                    - **Feature Correlation:** Check for high correlation between features and address multicollinearity, which can affect model performance.
+                    - **Redundant Features:** Identify and consider removing redundant features that do not add significant value.
+
+                    ### 7. **Categorical Data Checks:**
+                    - **Consistent Categories:** Verify that categorical features have consistent categories across the dataset.
+                    - **Encoding:** Ensure that categorical data is properly encoded (e.g., one-hot encoding, label encoding).
+
+                    ### 8. **Time Series Specific Checks:**
+                    - **Temporal Order:** For time series data, ensure that the data is sorted in temporal order.
+                    - **Missing Time Stamps:** Check for and handle any missing timestamps or irregular time intervals.
+
+                    ### 9. **Data Leakage Prevention:**
+                    - **Train-Test Split:** Ensure that the training data and test data are correctly split and that no test data is included in the training set.
+                    - **Feature Leakage:** Verify that no future information (data that would not be available at training time) is included in the features.
+
+                    ### 10. **Target Variable Checks:**
+                    - **Valid Labels:** Ensure that the target variable (labels) contains valid values and no anomalies.
+                    - **Consistent Encoding:** For classification tasks, verify that labels are consistently encoded.
+
+                    ### 11. **Format and Consistency:**
+                    - **File Formats:** Ensure that data files are in the correct format and encoding (e.g., CSV, JSON).
+                    - **Consistent Units:** Check that all measurements are in consistent units.
+
+                    ### 12. **Feature Engineering Validation:**
+                    - **Derived Features:** Validate that any derived features are correctly calculated and meaningful.
+                    - **Feature Scaling:** Ensure that features are properly scaled or normalized if required by the model (e.g., standardization, min-max scaling).
+
+                    ### Summary
+
+                    Performing these sanity checks helps to ensure the quality and reliability of your training data, which is crucial for building an effective and accurate neural network model. By addressing potential issues early, you can avoid many common pitfalls that could lead to poor model performance or training instability.
+                    ```
+
+            next,
+                I was assuming that data-sets "x" and "y" would be lists of lists, but it should be possible for a data-set to just be single numbers:
+                    `Network._check_data(None, {"x": [1, 2, 3, 4], "y": [1, 2, 3, 4]})`
+                which fails with:
+                    ```
+                    Traceback (most recent call last):
+                    File "D:\Github\1-Basic-Neural-Network-Implementation\1-Initialize-the-Network\init_the_network\Network.py", line 229, in <module>
+                        Network._check_data(None, {"x": [1, 2, 3, 4], "y": [1, 2, 3, 4]})
+                    File "D:\Github\1-Basic-Neural-Network-Implementation\1-Initialize-the-Network\init_the_network\Network.py", line 202, in _check_data
+                        x_lengths = {len(x_sample) for x_sample in x_data}
+                                    ^^^^^^^^^^^^^
+                    ```
+                and so need handling for that eventuality
+            then,
+                check that a list of empty lists is checked for and throws an error:
+                    `Network._check_data(None, {"x": [[], [], [], []], "y": [[], [], [], []]})`                
+                to check, perhaps flatten the input and look for numbers?
+            
+        then,
+            more Network.training
+            reference header "then, checking `Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep learning. MIT press.` to verify" for implementation details of the training method.
+            And see file titled "### Implementation Details for the "Training" Method in the `Network` Class" for overview of how to implement Network.training
+            And see pseudo code in Network.training method placeholder
 
 ----------------
 
@@ -1708,23 +1794,6 @@ TODO
     TODO, setup random "seed" for Neuron, Layer, and Network, so we can get reproducable results when testing
         see:
         https://github.com/pjmattingly/1-Basic-Neural-Network-Implementation/tree/main/1-Initialize-the-Network#practical-tips
-
-    --
-
-    TODO, take a closer look at the "symmetry breaking problem"
-        " And then b, it turns out that b does not have the symmetry problem, what's called the symmetry breaking problem."
-            see:
-            https://www.coursera.org/lecture/neural-networks-deep-learning/random-initialization-XtFPI
-
-        --
-
-        prior research
-            see:
-            https://stackoverflow.com/questions/59638646/what-does-it-mean-to-break-symmetry-in-the-context-of-neural-network-programm
-            and:
-            https://stackoverflow.com/questions/20027598/why-should-weights-of-neural-networks-be-initialized-to-random-numbers
-            https://ai.stackexchange.com/questions/6789/is-random-initialization-of-the-weights-the-only-choice-to-break-the-symmetry
-            https://proceedings.neurips.cc/paper_files/paper/2017/file/a96b65a721e561e1e3de768ac819ffbb-Paper.pdf
 
     --
 
@@ -1879,5 +1948,24 @@ DONE
         see:
         C:\Users\peter-work\Calibre Library\Goodfellow, Ian; Bengio, Yoshua; Cou\Deep Learning (19)\Deep Learning - Goodfellow, Ian; Bengio, Yoshua.pdf
     DONE
+
+    --
+
+    TODO, take a closer look at the "symmetry breaking problem"
+        " And then b, it turns out that b does not have the symmetry problem, what's called the symmetry breaking problem."
+            see:
+            https://www.coursera.org/lecture/neural-networks-deep-learning/random-initialization-XtFPI
+
+        --
+
+        prior research
+            see:
+            https://stackoverflow.com/questions/59638646/what-does-it-mean-to-break-symmetry-in-the-context-of-neural-network-programm
+            and:
+            https://stackoverflow.com/questions/20027598/why-should-weights-of-neural-networks-be-initialized-to-random-numbers
+            https://ai.stackexchange.com/questions/6789/is-random-initialization-of-the-weights-the-only-choice-to-break-the-symmetry
+            https://proceedings.neurips.cc/paper_files/paper/2017/file/a96b65a721e561e1e3de768ac819ffbb-Paper.pdf
+    DONE
+        see header "then, checking `Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep learning. MIT press.` to verify"
 
 # tail
