@@ -109,3 +109,45 @@ class Network:
             outputs = layer.forward_pass(outputs)
 
         return outputs
+    
+    def _backward_pass(self):
+        #PLACEHOLDER
+        pass
+    
+    def training(self, data, learning_rate=None, epochs=None):
+        '''
+        #doing a simple training algorithm
+        #no batching, using the entire training set for training
+        #no splitting data into "Training" and "Validation" sets
+        #no early stopping criteria
+
+        self._check_data(data)
+
+        for _ in range(epochs):
+            data = random.shuffle(data)
+
+            outputs = [self.forward_pass(x) for x in data[x]]
+
+            _log_accuracy(results, data[y])
+
+            losses = loss_calc(results, data[y])
+
+            #logging loss
+            print(losses)
+
+            #how to do the backward pass? What parameters does it need?
+            new_weights_and_biases = self._backward_pass(losses) #PLACEHOLDER
+
+            for i, update in enumerate(new_weights_and_biases):
+                #TODO, how to update the new weights and biases given the current 
+                # learning rate during the i_th epoch?
+                new_weight = update[weight]*learning_rate #PLACEHOLDER
+                new_bias = update[bias]*learning_rate #PLACEHOLDER
+
+                self.update_weight(i, new_weight)
+                self.update_bias(i, new_bias)
+        '''
+        pass
+
+    def _check_data(self, data):
+        pass
