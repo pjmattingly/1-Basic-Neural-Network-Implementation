@@ -3,7 +3,7 @@ try:
     from .Layer import Layer
 except ImportError:
     from Layer import Layer
-from typing import List
+from typing import List, Dict, Any
 import numpy as np
 
 class Network:
@@ -149,81 +149,85 @@ class Network:
         '''
         pass
 
-    def _check_data(self, data):
+    def _check_data(self, data: Dict[str, Any]) -> None:
+        """
+        Perform sanity checks on the training data.
+
+        Parameters:
+            data (Dict[str, Any]): Data dictionary containing 'x' and 'y'.
+
+        Raises:
+            TypeError: If 'data' does not have the required structure or contains 
+                non-numeric elements.
+            ValueError: If 'data' contains inconsistent lengths, empty datasets, 
+                non-finite elements, or duplicate entries.
+        """
+
+        if not callable(getattr(data, "get", None)):
+            raise TypeError( "Data object should contain a method 'get' to fetch a set \
+                            of data." )
+        
         if data.get("x") is None:
             raise TypeError( "Data should contain a key of 'x'." )
 
         if data.get("y") is None:
             raise TypeError( "Data should contain a key of 'y'." )
         
-        if not len(data.get["x"]) == len(data.get["y"]):
+        x_data = data["x"]
+        y_data = data["y"]
+        
+        if not len(x_data) == len(y_data):
             raise ValueError("Data-sets 'x' and 'y' should be the same size.")
         
-        if len(data.get["x"]) == 0 or len(data.get["y"]) == 0:
+        if len(x_data) == 0 or len(y_data) == 0:
             raise ValueError("Data-sets 'x' or 'y' should not be empty.")
 
-        na_x = np.array(data.get["x"])
+        na_x = np.array(x_data)
+        na_y = np.array(y_data)
 
         if not np.issubdtype(na_x.dtype, np.number):
-            raise TypeError(
-                "Data-set 'x' should contain only numeric elements."
-                )
+            raise TypeError("Data-set 'x' should contain only numeric elements.")
         if not np.isfinite(na_x).all():
-            raise TypeError(
+            raise ValueError(
                 "Data-set 'x' should contain only finite numeric elements."
                 )
         
-        na_y = np.array(data.get["y"])
-
         if not np.issubdtype(na_y.dtype, np.number):
-            raise TypeError(
-                "Data-set 'x' should contain only numeric elements."
-                )
+            raise TypeError("Data-set 'y' should contain only numeric elements.")
         if not np.isfinite(na_y).all():
-            raise TypeError(
-                "Data-set 'x' should contain only finite numeric elements."
+            raise ValueError(
+                "Data-set 'y' should contain only finite numeric elements."
                 )
         
-        x_lengths = set([len(x_sample) for x_sample in data.get["x"]])
-
-        if not len(x_lengths) == 1:
+        x_lengths = {len(x_sample) for x_sample in x_data}
+        if len(x_lengths) != 1:
             raise ValueError(
                 "All samples in data-set 'x' should have the same dimension."
                 )
         
-        y_lengths = set([len(y_sample) for y_sample in data.get["y"]])
-
-        if not len(y_lengths) == 1:
+        y_lengths = {len(y_sample) for y_sample in y_data}
+        if len(y_lengths) != 1:
             raise ValueError(
                 "All samples in data-set 'y' should have the same dimension."
                 )
         
         #checking for duplicates; see: https://stackoverflow.com/q/11528078
-        sorted_x = np.sort(data.get["x"], axis=None)
+        sorted_x = np.sort(x_data, axis=None)
         if any(sorted_x[1:] == sorted_x[:-1]):
             raise ValueError(
                 "Found duplicate entries in data-set 'x', please clean the data and \
                     try again."
                 )
         
-        sorted_y = np.sort(data.get["y"], axis=None)
+        sorted_y = np.sort(y_data, axis=None)
         if any(sorted_y[1:] == sorted_y[:-1]):
             raise ValueError(
                 "Found duplicate entries in data-set 'y', please clean the data and \
                     try again."
                 )
         
-
-a = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [1, 2, 3],
-]
-s = np.sort(a, axis=None)
-print(s)
-print(s[:-1])
-print(s[1:])
-print(s[1:] == s[:-1])
-print(s[:-1][s[1:] == s[:-1]])
-s[:-1][s[1:] == s[:-1]]
-print(any(s[1:] == s[:-1]))
+Network._check_data(None, {"x": [1, 2, 3, 4], "y": [1, 2, 3, 4]})
+#Network._check_data(None, {"x": [[1], [2], [3], [4]], "y": [[1], [2], [3], [4]]})
+#Network._check_data(None, {"x": [[np.nan], [2], [3], [4]], "y": [[1], [2], [3], [4]]})
+#Network._check_data(None, {"x": [["bad"], [2], [3], [4]], "y": [[1], [2], [3], [4]]})
+#Network._check_data(None, {"x": [[1], [2], [3], [4]], "y": [["bad"], [2], [3], [4]]})
