@@ -1231,15 +1231,476 @@ TODO, LLM chatbot
                     the consensus seems to be that the weights are the important bit for "breaking symmetry", and so random initialization of the biases can be neglected as they don't have a (significant) impact on "breaking symmetry"
                         see:
                         https://cs231n.github.io/neural-networks-2/
+            DONE
 
+            --
 
+            [07.13.24]
 
+            --
 
+            testing Network.forward_pass, and Layer.forward_pass (oops)
+            DONE
 
-            next,
-                
-            then,
-                implementing more of Network
+            --
+
+            then, the coding plan calls for a "Training" method, but doesn't provide detail on how to do that.
+                checking wih ChatGPT, and getting a more in-depth answer.
+                    see:
+                    https://chatgpt.com/c/5380ffd7-2b2c-4244-82f1-2ee744e67254
+
+                    --
+
+                    ### Implementation Details for the "Training" Method in the `Network` Class
+
+                    The "Training" method in a neural network class is responsible for adjusting the network's weights and biases to minimize the difference between the predicted outputs and the actual target values. This process typically involves several key steps, which can be broken down as follows:
+
+                    1. **Initialization:**
+                    - **Set Hyperparameters:** Define the learning rate, number of epochs, batch size, and any other hyperparameters required for training.
+                    - **Initialize Parameters:** Ensure weights and biases are initialized, usually done in the network or layer initialization.
+
+                    2. **Forward Pass:**
+                    - For each training example (or batch of examples), perform a forward pass to calculate the predicted outputs using the current weights and biases.
+                    - **Input Data:** Pass the input features through the network layers sequentially, applying activation functions at each layer to produce the output.
+
+                    3. **Loss Calculation:**
+                    - **Compute Loss:** Calculate the loss (or error) between the predicted outputs and the actual target values. Common loss functions include Mean Squared Error (MSE) for regression tasks and Cross-Entropy Loss for classification tasks.
+                    - **Loss Function:** Use the chosen loss function to measure how far the predicted values are from the actual values.
+
+                    4. **Backward Pass (Backpropagation):**
+                    - **Calculate Gradients:** Compute the gradients of the loss function with respect to each weight and bias in the network. This involves applying the chain rule to propagate the error backward through the network.
+                    - **Gradient Calculation:** For each layer, calculate the gradient of the loss with respect to the layer's weights and biases.
+
+                    5. **Parameter Update:**
+                    - **Update Weights and Biases:** Adjust the weights and biases using the calculated gradients. This is typically done using an optimization algorithm such as Stochastic Gradient Descent (SGD), Adam, or RMSprop.
+                    - **Learning Rate:** Apply the learning rate to scale the gradient updates, ensuring they are neither too large nor too small.
+
+                    6. **Epoch Loop:**
+                    - **Repeat for Each Epoch:** Iterate through the entire dataset multiple times (epochs). In each epoch, iterate through all training examples (or batches) to perform the forward pass, loss calculation, backward pass, and parameter update.
+
+                    7. **Batch Processing (Optional):**
+                    - **Mini-Batch Gradient Descent:** Instead of using the entire dataset at once, split the data into mini-batches and update parameters for each mini-batch. This can improve the efficiency and stability of training.
+
+                    8. **Evaluation (Optional):**
+                    - **Validation Set:** Use a separate validation set to evaluate the network's performance after each epoch. This helps in monitoring for overfitting and adjusting hyperparameters.
+                    - **Metrics Calculation:** Calculate metrics such as accuracy, precision, recall, etc., to assess the network's performance on the validation set.
+
+                    9. **Stopping Criteria:**
+                    - **Early Stopping (Optional):** Implement early stopping based on validation performance to prevent overfitting.
+                    - **Number of Epochs:** Stop training after a predefined number of epochs or when the loss converges.
+
+                    10. **Logging and Monitoring:**
+                        - **Track Progress:** Log training metrics such as loss and accuracy after each epoch to monitor the network's learning progress.
+                        - **Visualization:** Optionally visualize the training progress using tools like TensorBoard or Matplotlib.
+
+                    ### Summary
+
+                    The training method in a neural network class involves the following key steps: initializing hyperparameters, performing forward passes to compute predictions, calculating the loss, conducting backward passes to compute gradients, updating parameters, and repeating these steps across multiple epochs. Additionally, optional steps like mini-batch processing, validation, early stopping, and logging can be included to enhance the training process.
+
+                then, checking `Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep learning. MIT press.` to verify
+                    352
+                        "It is also crucial that the minibatches be selected randomly. Computing an
+                        unbiased estimate of the expected gradient from a set of samples requires that those samples be independent"
+
+                        "We also wish for two subsequent gradient
+                        estimates to be independent from each other, so two subsequent minibatches
+                        of examples should also be independent from each other."
+
+                        "Fortunately, in practice it is usually
+                        sufficient to shuffle the order of the dataset once and then store it in shuffled
+                        fashion."
+
+                        "This deviation from true random selection does not seem to have a
+                        significant detrimental effect"
+
+                        --
+
+                        "Many optimization problems in machine learning decompose over
+                        examples well enough that we can compute entire separate updates over
+                        different examples in parallel"
+
+                        " In other words, we can compute the update that
+                        minimizes J(X) for one minibatch of examples X at the same time that we
+                        compute the update for several other minibatches. Such asynchronous parallel
+                        distributed approaches are discussed further in section 12.1.3."
+
+                        353
+                            "Hence, we can obtain an unbiased estimator of the exact gradient of the
+                            generalization error by sampling a minibatch of examples {x(1), … x(m)} with
+                            corresponding targets y(i) from the data-generating distribution pdata, then
+                            computing the gradient of the loss with respect to the parameters for that
+                            minibatch"
+
+                        354
+                            "Of course, this interpretation applies only when examples are not reused"
+
+                            "Nonetheless, it is usually best to make several passes through the training set,
+                            unless the training set is extremely large."
+
+                        --
+
+                        "Traditionally, machine
+                        learning has avoided the difficulty of general optimization by carefully
+                        designing the objective function and constraints to ensure that the
+                        optimization problem is convex"
+
+                        "When training neural networks, we must
+                        confront the general nonconvex case"
+
+                        356
+                            "With nonconvex functions, such as neural nets, it is possible to have many
+                            local minima. "
+
+                            "Neural networks and any models with multiple equivalently parametrized
+                            latent variables all have multiple local minima because of the **model
+                            identifiability problem**."
+
+                            "A model is said to be identifiable if a sufficiently large
+                            training set can rule out all but one setting of the model’s parameters."
+
+                            "Models
+                            with latent variables are often not identifiable because we can obtain equivalent
+                            models by exchanging latent variables with each other"
+
+                        --
+
+                        (bolded term)
+                            "**weight space symmetry**"
+
+                        --
+
+                        "These model identifiability issues mean that a neural network cost function
+                        can have an extremely large or even uncountably infinite amount of local
+                        minima."
+
+                        "However, all these local minima arising from nonidentifiability are
+                        equivalent to each other in cost function value."
+
+                        --
+
+                        [07.13.24]
+
+                        --
+
+                        "For many high-dimensional nonconvex functions, local minima (and maxima)
+                        are in fact rare compared to another kind of point with zero gradient: a saddle
+                        point."
+
+                        "We can think of
+                        a saddle point as being a local minimum along one cross-section of the cost
+                        function and a local maximum along another cross-section. "
+
+                        --
+
+                        "Many classes of random functions exhibit the following behavior: in low-
+                        dimensional spaces, local minima are common."
+
+                        "In higher-dimensional spaces,
+                        local minima are rare, and saddle points are more common"
+
+                        "For a function f :
+                        ℝn → ℝ of this type, the expected ratio of the number of saddle points to local
+                        minima grows exponentially with n."
+
+                        "To understand the intuition behind this
+                        behavior, observe that the Hessian matrix at a local minimum has only positive
+                        eigenvalues. e Hessian matrix at a saddle point has a mixture of positive and
+                        negative eigenvalues. Imagine that the sign of each eigenvalue is generated by
+                        flipping a coin. In a single dimension, it is easy to obtain a local minimum by
+                        tossing a coin and getting heads once. In n-dimensional space, it is
+                        exponentially unlikely that all n coin tosses will be heads. See Dauphin et al.
+                        (2014) for a review of the relevant theoretical work."
+
+                        --
+
+                        discussion of the "vanishing and exploding gradient problem"
+                            "e vanishing and exploding gradient problem refers to the fact
+                            that gradients through such a graph are also scaled according to diag(
+                            λ)t.
+                            Vanishing gradients make it difficult to know which direction the parameters
+                            should move to improve the cost function, while exploding gradients can make
+                            learning unstable. e cliff structures described earlier that motivate gradient
+                            clipping are an example of the exploding gradient phenomenon."
+
+                        --
+
+                        "Many of the problems we have discussed so far correspond to properties of the
+                        loss function at a single point—it can be difficult to make a single step if J(
+                        θ)
+                        is poorly conditioned at the current point
+                        θ, or if
+                        θ lies on a cliff, or if
+                        θ is a
+                        saddle point hiding the opportunity to make progress downhill from the
+                        gradient."
+
+                        --
+
+                        "Stochastic gradient descent (SGD) and its variants are probably the most used
+                        optimization algorithms for machine learning in general and for deep learning
+                        in particular. "
+
+                        "A crucial parameter for the SGD algorithm is the learning rate. Previously,
+                        we have described SGD as using a fixed learning rate ϵ. In practice, it is
+                        necessary to gradually decrease the learning rate over time, so we now denote
+                        the learning rate at iteration k as ϵk."
+
+                        --
+
+                        A sketch of SGD
+                            Algorithm 8.1 Stochastic gradient descent (SGD) update at training iteration
+                            k
+                            
+                            Require: Learning rate schedule ϵ1, ϵ2, …
+                            Require: Initial parameter
+                            θ
+                            k ← 1
+                            while stopping criterion not met do
+                                Sample a minibatch of m examples from the training set {x(1), … , x(m)}
+                                with corresponding targets y(i).
+                                Compute gradient estimate: g_hat <- +(1/m)*(gradient w.r.t theta)(sum over the loss function (L) with parameters f(x[i]; theta); y[i])
+                                Apply update:
+                                θ ← θ − ϵkĝ.
+                                k ← k + 1
+                            end while
+
+                            (a note on "Compute gradient estimate", that it's computing the average of the loss function multiplied by the gradient w.r.t to the parameter theta)
+
+                        Then a discussion of how to decay the learning rate ϵ:
+                            ```
+                            In practice, it is common to decay the learning rate linearly until iteration τ:
+                                ϵk = (1 - :alpha:)ϵ0 + :alpha:ϵ_τ
+                            
+                            with :alpha: = k / τ.
+                            
+                            After iteration τ, it is common to leave ϵ constant.
+                            ```
+
+                            (with k being the kth step in the SGD algorithm, as above)
+
+                        "The learning rate may be chosen by trial and error, but it is usually best to
+                        choose it by monitoring learning curves that plot the objective function as a
+                        function of time."
+
+                        --
+
+                        "When using the linear
+                        schedule, the parameters to choose are ϵ0, ϵ
+                        τ, and
+                        τ. Usually
+                        τ may be set to
+                        the number of iterations required to make a few hundred passes through the
+                        training set."
+
+                        "Usually ϵ
+                        τ should be set to roughly 1 percent the value of ϵ0."
+
+                        "e
+                        main question is how to set ϵ0. If it is too large, the learning curve will show
+                        violent oscillations, with the cost function often increasing significantly. Gentle
+                        oscillations are fine, especially if training with a stochastic cost function, such
+                        as the cost function arising from the use of dropout. If the learning rate is too
+                        low, learning proceeds slowly, and if the initial learning rate is too low, learning
+                        may become stuck with a high cost value"
+
+                        " Typically, the optimal initial learning
+                        rate, in terms of total training time and the final cost value, is higher than the
+                        learning rate that yields the best performance after the first 100 iterations or so.
+                        erefore, it is usually best to monitor the first several iterations and use a
+                        learning rate that is higher than the best-performing learning rate at this time,
+                        but not so high that it causes severe instability."
+
+                        --
+
+                        "To study the convergence rate of an optimization algorithm it is common
+                        to measure the excess error J(
+                        θ) − min
+                        θJ(
+                        θ), which is the amount by which
+                        the current cost function exceeds the minimum possible cost"
+
+                        --
+
+                        "While stochastic gradient descent remains a popular optimization strategy,
+                        learning with it can sometimes be slow. e method of momentum (Polyak,
+                        1964) is designed to accelerate learning, especially in the face of high
+                        curvature, small but consistent gradients, or noisy gradients. e momentum
+                        algorithm accumulates an exponentially decaying moving average of past
+                        gradients and continues to move in their direction."
+
+                        --
+
+                        Then a discussion of the "Stochastic gradient descent (SGD) with momentum" algorithm on pg 327 - 373
+
+                        --
+
+                        "8.3.3 Nesterov Momentum" starting on pg. 375
+
+                        --
+
+                        "Training algorithms for deep learning models are usually
+                        iterative and thus require the user to specify some initial point from which to
+                        begin the iterations."
+
+                        "Moreover, training deep models is a sufficiently difficult
+                        task that most algorithms are strongly affected by the choice of initialization."
+
+                        "e initial point can determine whether the algorithm converges at all, with
+                        some initial points being so unstable that the algorithm encounters numerical
+                        difficulties and fails altogether"
+
+                        --
+
+                        An extended discussion on why the initial weights are initialized randomly, and addressing the "symmetry breaking problem"
+                            "Perhaps the only property known with complete certainty is that the initial
+                            parameters need to “break symmetry” between different units"
+
+                            " If two hidden
+                            units with the same activation function are connected to the same inputs, then
+                            these units must have different initial parameters"
+
+                            "If they have the same initial
+                            parameters, then a deterministic learning algorithm applied to a deterministic
+                            cost and model will constantly update both of these units in the same way."
+
+                            "Even if the model or training algorithm is capable of using stochasticity to
+                            compute different updates for different units (for example, if one trains with
+                            dropout), it is usually best to initialize each unit to compute a different
+                            function from all the other units."
+
+                            "is may help to make sure that no input
+                            patterns are lost in the null space of forward propagation and that no gradient
+                            patterns are lost in the null space of back-propagation."
+
+                            "e goal of having each
+                            unit compute a different function motivates random initialization of the
+                            parameters"
+
+                            "Random initialization from a high-entropy
+                            distribution over a high-dimensional space is computationally cheaper and
+                            unlikely to assign any units to compute the same function as each other."
+
+                            "We almost always initialize all the weights in the model to values drawn
+                            randomly from a Gaussian or uniform distribution."
+
+                            "Larger initial weights will yield a stronger symmetry-breaking effect,
+                            helping to avoid redundant units."
+
+                            "Initial weights that are too large may, however, result in exploding values
+                            during forward propagation or back-propagation."
+
+                            --
+
+                            "e optimization perspective
+                            suggests that the weights should be large enough to propagate information
+                            successfully, but some regularization concerns encourage making them smaller"
+
+                        --
+
+                        Then a discussion about why the biases are typically initialized to zero
+                            "e approach for setting the biases must be coordinated with the approach
+                            for setting the weights. Setting the biases to zero is compatible with most
+                            weight initialization schemes."
+                DONE
+                    [07.25.24]
+
+                    When using a mini-batch approach, select the batches randomly.
+                        "Computing an unbiased estimate of the expected gradient from a set of samples requires that those samples be independent"
+                    And instead of randomly sampling the set of mini-batches that can be made of the data-set, a shuffle of the data-set and iterating through it linearly is commonly sufficient.
+                        "Fortunately, in practice it is usually sufficient to shuffle the order of the dataset once and then store it in shuffled fashion."
+                    It's possible to do _some_ resolutions of optimization problems in parallel through a Neural Network.
+                        "Many optimization problems in machine learning decompose over
+                        examples well enough that we can compute entire separate updates over
+                        different examples in parallel"
+                    "Nonetheless, it is usually best to make several passes through the training set, unless the training set is extremely large."
+                    As the dimension of the inputs gets larger, the more common saddle-points become in the function formed via the neural network.
+                        "For many high-dimensional nonconvex functions, local minima (and maxima) are in fact rare compared to another kind of point with zero gradient: a saddle point."
+                    Stochastic Gradient Descent
+                        "Stochastic gradient descent (SGD) and its variants are probably the most used optimization algorithms for machine learning in general and for deep learning in particular."
+
+                        A parameter for SGD is the learning rate (ϵ), and in practice it decays over time while running and SGD operation.
+
+                        A sketch of SGD
+                            Algorithm 8.1 Stochastic gradient descent (SGD) update at training iteration
+                            k
+                            
+                            Require: Learning rate schedule ϵ1, ϵ2, …
+                            Require: Initial parameter
+                            θ
+                            k ← 1
+                            while stopping criterion not met do
+                                Sample a minibatch of m examples from the training set {x(1), … , x(m)}
+                                with corresponding targets y(i).
+                                Compute gradient estimate: g_hat <- +(1/m)*(gradient w.r.t theta)(sum over the loss function (L) with parameters f(x[i]; theta); y[i])
+                                Apply update:
+                                θ ← θ − ϵkĝ.
+                                k ← k + 1
+                            end while
+
+                            (a note on "Compute gradient estimate", that it's computing the average of the loss function multiplied by the gradient w.r.t to the parameter theta)
+
+                        Then a discussion of how to decay the learning rate ϵ:
+                            ```
+                            In practice, it is common to decay the learning rate linearly until iteration τ:
+                                ϵk = (1 - :alpha:)ϵ0 + :alpha:ϵ_τ
+                            
+                            with :alpha: = k / τ.
+                            
+                            After iteration τ, it is common to leave ϵ constant.
+                            ```
+
+                            (with k being the kth step in the SGD algorithm, as above)
+
+                        Various tips on setting parameters for SGD, or how to measure performance of SGD to infer good values of said parameters
+                            "When using the linear schedule, the parameters to choose are ϵ0, ϵτ, and τ. Usually τ may be set to the number of iterations required to make a few hundred passes through the training set."
+
+                            "Usually ϵτ should be set to roughly 1 percent the value of ϵ0."
+
+                            " Typically, the optimal initial learning rate, in terms of total training time and the final cost value, is higher than the learning rate that yields the best performance after the first 100 iterations or so. Therefore, it is usually best to monitor the first several iterations and use a learning rate that is higher than the best-performing learning rate at this time, but not so high that it causes severe instability."
+                    A discussion of the "Stochastic gradient descent (SGD) with momentum" algorithm on pg 327 - 373.
+                    The "symmetry breaking problem" centers around the desire to avoid "that no input patterns are lost in the null space of forward propagation and that no gradient patterns are lost in the null space of back-propagation". Then also, it's helpful to avoid having individual units of a neural network compute the same or similar function. And so to avoid such issues, the standard remedy for this issues is random initialization of the weights.
+            DONE
+                the ChatGPT sketch of the training algorithm is essentially correct.
+
+            --
+
+            Pseudo-code the training method.
+                def training(self, data, learning_rate=None, epochs=None):
+                    #doing a simple training algorithm
+                    #no batching, using the entire training set for training
+                    #no splitting data into "Training" and "Validation" sets
+                    #no early stopping criteria
+
+                    for _ in range(epochs):
+                        data = random.shuffle(data)
+
+                        outputs = [self.forward_pass(x) for x in data[x]]
+
+                        _log_accuracy(results, data[y])
+
+                        losses = loss_calc(results, data[y])
+
+                        #logging loss
+                        print(losses)
+
+                        #how to do the backward pass? What parameters does it need?
+                        new_weights_and_biases = self._backward_pass(losses) #PLACEHOLDER
+
+                        for i, update in enumerate(new_weights_and_biases):
+                            #TODO, how to update the new weights and biases given the current 
+                            # learning rate during the i_th epoch?
+                            new_weight = update[weight]*learning_rate #PLACEHOLDER
+                            new_bias = update[bias]*learning_rate #PLACEHOLDER
+
+                            self.update_weight(i, new_weight)
+                            self.update_bias(i, new_bias)
+
+            And so first, need to check the data
+                should be a set of records of the form: {x: inputs; y: ouputs}
+                and only accepting numerical values for `inputs` and outputs`
+
+        next,
+            implementing Network._check_data
 
 ----------------
 
@@ -1247,6 +1708,8 @@ TODO
     TODO, setup random "seed" for Neuron, Layer, and Network, so we can get reproducable results when testing
         see:
         https://github.com/pjmattingly/1-Basic-Neural-Network-Implementation/tree/main/1-Initialize-the-Network#practical-tips
+
+    --
 
     TODO, take a closer look at the "symmetry breaking problem"
         " And then b, it turns out that b does not have the symmetry problem, what's called the symmetry breaking problem."
@@ -1262,6 +1725,11 @@ TODO
             https://stackoverflow.com/questions/20027598/why-should-weights-of-neural-networks-be-initialized-to-random-numbers
             https://ai.stackexchange.com/questions/6789/is-random-initialization-of-the-weights-the-only-choice-to-break-the-symmetry
             https://proceedings.neurips.cc/paper_files/paper/2017/file/a96b65a721e561e1e3de768ac819ffbb-Paper.pdf
+
+    --
+
+    TODO, for the BackProp part, see `Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep learning. MIT press.`
+        5.3. Error Backpropagation, pg 241
 
 ----------------
 
