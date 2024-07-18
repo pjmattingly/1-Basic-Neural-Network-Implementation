@@ -181,6 +181,62 @@ class Network:
         
         if len(x_data) == 0 or len(y_data) == 0:
             raise ValueError("Data-sets 'x' or 'y' should not be empty.")
+        
+        def is_iter(x):
+            try:
+                iter(x)
+            except TypeError:
+                return False
+            return True
+
+        #the data-sets should be either all iterables, or all finite numeric elements
+        #If all the items in the data-sets are iterables, then their lengths should all 
+        # be the same.
+        #And, no iterable in any data-set should be empty.
+        #Otherwise, if they are all finite numeric elements, then there's no further 
+        # checking needed
+        #But, if there's a mix of iterables and finite numeric elements
+        # then raise to the caller
+        x_is_iterable = [is_iter(_) for _ in x_data]
+        if all( x_is_iterable ):
+            #if they are all iterables, then their lengths should all be the same
+            x_lengths = {len(x_sample) for x_sample in x_data}
+            if len(x_lengths) != 1:
+                raise ValueError(
+                    "All samples in data-set 'x' should have the same dimension."
+                    )
+            
+            #check for empty iterables
+            if 0 in x_lengths:
+                raise ValueError(
+                    "No samples in data-set 'x' should be empty."
+                    )
+        else:
+            #check for a mix of iterables and finite numeric elements
+            if len(set(x_is_iterable)) != 1:
+                raise TypeError("Dataset 'x' should either be entirely numeric or \
+                                entirely made up of iterables.")
+            
+            
+        y_is_iterable = [is_iter(_) for _ in y_data]
+        if all( y_is_iterable ):
+            #if they are all iterables, then their lengths should all be the same
+            y_lengths = {len(y_sample) for y_sample in y_data}
+            if len(y_lengths) != 1:
+                raise ValueError(
+                    "All samples in data-set 'y' should have the same dimension."
+                    )
+            
+            #check for empty iterables
+            if 0 in y_lengths:
+                raise ValueError(
+                    "No samples in data-set 'y' should be empty."
+                    )
+        else:
+            #check for a mix of iterables and finite numeric elements
+            if len(set(y_is_iterable)) != 1:
+                raise TypeError("Dataset 'y' should either be entirely numeric or \
+                                entirely made up of iterables.")
 
         na_x = np.array(x_data)
         na_y = np.array(y_data)
@@ -198,50 +254,7 @@ class Network:
             raise ValueError(
                 "Data-set 'y' should contain only finite numeric elements."
                 )
-        
-        def is_iter(x):
-            try:
-                iter(x)
-            except TypeError:
-                return False
-            return True
 
-        #the data-sets should be either all iterables, or all finite numeric elements
-        #if all the items in the data-sets are iterables, then their lengths should all 
-        # be the same.
-        #Otherwise, if they are all finite numeric elements, then there's no further 
-        # checking needed
-        #But, if there's a mix of iterables and finite numeric elements
-        # then raise to the caller
-        x_is_iterable = [is_iter(_) for _ in x_data]
-        if all( x_is_iterable ):
-            #if they are all iterables, then their lengths should all be the same
-            x_lengths = {len(x_sample) for x_sample in x_data}
-            if len(x_lengths) != 1:
-                raise ValueError(
-                    "All samples in data-set 'x' should have the same dimension."
-                    )
-        else:
-            #check for a mix of iterables and finite numeric elements
-            if len(set(x_is_iterable)) != 1:
-                raise TypeError("Dataset 'x' should either be entirely numeric or \
-                                entirely made up of iterables.")
-            
-            
-        y_is_iterable = [is_iter(_) for _ in y_data]
-        if all( y_is_iterable ):
-            #if they are all iterables, then their lengths should all be the same
-            y_lengths = {len(y_sample) for y_sample in y_data}
-            if len(y_lengths) != 1:
-                raise ValueError(
-                    "All samples in data-set 'y' should have the same dimension."
-                    )
-        else:
-            #check for a mix of iterables and finite numeric elements
-            if len(set(y_is_iterable)) != 1:
-                raise TypeError("Dataset 'y' should either be entirely numeric or \
-                                entirely made up of iterables.")
-        
         #checking for duplicates; see: https://stackoverflow.com/q/11528078
         sorted_x = np.sort(x_data, axis=None)
         if any(sorted_x[1:] == sorted_x[:-1]):
@@ -262,3 +275,5 @@ Network._check_data(None, {"x": [1, 2, 3, 4], "y": [1, 2, 3, 4]})
 #Network._check_data(None, {"x": [[np.nan], [2], [3], [4]], "y": [[1], [2], [3], [4]]})
 #Network._check_data(None, {"x": [["bad"], [2], [3], [4]], "y": [[1], [2], [3], [4]]})
 #Network._check_data(None, {"x": [[1], [2], [3], [4]], "y": [["bad"], [2], [3], [4]]})
+Network._check_data(None, {"x": [[1], [2], [3], [4]], "y": [[1], [2], [3], []]})
+#Network._check_data(None, {"x": [[], [], [], []], "y": [[], [], [], []]})
