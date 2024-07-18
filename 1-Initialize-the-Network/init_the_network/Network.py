@@ -4,6 +4,7 @@ try:
 except ImportError:
     from Layer import Layer
 from typing import List, Dict, Any
+from collections.abc import Iterable
 import numpy as np
 
 class Network:
@@ -163,117 +164,113 @@ class Network:
                 non-finite elements, or duplicate entries.
         """
 
+        self._is_dict_like(data)
+
+        self._has_x_and_y_indices(data)
+        
+        x_data = data.get("x")
+        y_data = data.get("y")
+
+        self._is_iterable(x_data, "x")
+        self._is_iterable(y_data, "y")
+        
+        self._x_and_y_have_equal_size(x_data, y_data)
+
+        self._x_and_y_not_empty(x_data, y_data)
+
+        self._all_elements_have_the_same_shape(x_data, "x")
+        self._all_elements_have_the_same_shape(y_data, "y")
+
+        self._all_elements_are_not_empty(x_data, "x")
+        self._all_elements_are_not_empty(y_data, "y")
+
+        self._has_only_numeric_elements(x_data, "x")
+        self._has_only_numeric_elements(y_data, "y")
+
+        self._has_only_finite_elements(x_data, "x")
+        self._has_only_finite_elements(y_data, "y")
+
+        self._does_not_have_duplicate_elements(x_data, "x")
+        self._does_not_have_duplicate_elements(y_data, "y")
+    
+    def _is_dict_like(self, data: Dict[str, Any]) -> None:
         if not callable(getattr(data, "get", None)):
             raise TypeError( "Data object should contain a method 'get' to fetch a set \
                             of data." )
         
+    def _has_x_and_y_indices(self, data: Dict[str, Any]) -> None:
         if data.get("x") is None:
             raise TypeError( "Data should contain a key of 'x'." )
 
         if data.get("y") is None:
             raise TypeError( "Data should contain a key of 'y'." )
         
-        x_data = data["x"]
-        y_data = data["y"]
+    def _is_iterable(self, x: Any, label: str) -> None:
+        try:
+            iter(x)
+        except TypeError:
+            raise TypeError(f"Dataset '{label}' should be an iterable.")
         
-        if not len(x_data) == len(y_data):
+    def _x_and_y_have_equal_size(self, x: Iterable[Any], y: Iterable[Any]) -> None:
+        if not len(x) == len(y):
             raise ValueError("Data-sets 'x' and 'y' should be the same size.")
         
-        if len(x_data) == 0 or len(y_data) == 0:
+    def _x_and_y_not_empty(self, x: Iterable[Any], y: Iterable[Any]) -> None:
+        if len(x) == 0 or len(y) == 0:
             raise ValueError("Data-sets 'x' or 'y' should not be empty.")
-        
-        def is_iter(x):
-            try:
-                iter(x)
-            except TypeError:
-                return False
-            return True
 
-        #the data-sets should be either all iterables, or all finite numeric elements
-        #If all the items in the data-sets are iterables, then their lengths should all 
-        # be the same.
-        #And, no iterable in any data-set should be empty.
-        #Otherwise, if they are all finite numeric elements, then there's no further 
-        # checking needed
-        #But, if there's a mix of iterables and finite numeric elements
-        # then raise to the caller
-        x_is_iterable = [is_iter(_) for _ in x_data]
-        if all( x_is_iterable ):
-            #if they are all iterables, then their lengths should all be the same
-            x_lengths = {len(x_sample) for x_sample in x_data}
-            if len(x_lengths) != 1:
-                raise ValueError(
-                    "All samples in data-set 'x' should have the same dimension."
-                    )
-            
-            #check for empty iterables
-            if 0 in x_lengths:
-                raise ValueError(
-                    "No samples in data-set 'x' should be empty."
-                    )
-        else:
-            #check for a mix of iterables and finite numeric elements
-            if len(set(x_is_iterable)) != 1:
-                raise TypeError("Dataset 'x' should either be entirely numeric or \
-                                entirely made up of iterables.")
-            
-            
-        y_is_iterable = [is_iter(_) for _ in y_data]
-        if all( y_is_iterable ):
-            #if they are all iterables, then their lengths should all be the same
-            y_lengths = {len(y_sample) for y_sample in y_data}
-            if len(y_lengths) != 1:
-                raise ValueError(
-                    "All samples in data-set 'y' should have the same dimension."
-                    )
-            
-            #check for empty iterables
-            if 0 in y_lengths:
-                raise ValueError(
-                    "No samples in data-set 'y' should be empty."
-                    )
-        else:
-            #check for a mix of iterables and finite numeric elements
-            if len(set(y_is_iterable)) != 1:
-                raise TypeError("Dataset 'y' should either be entirely numeric or \
-                                entirely made up of iterables.")
-
-        na_x = np.array(x_data)
-        na_y = np.array(y_data)
-
-        if not np.issubdtype(na_x.dtype, np.number):
-            raise TypeError("Data-set 'x' should contain only numeric elements.")
-        if not np.isfinite(na_x).all():
+    def _all_elements_have_the_same_shape(self, x: Iterable[Any], label: str) -> None:
+        try:
+            np.array(x)
+        except ValueError:
             raise ValueError(
-                "Data-set 'x' should contain only finite numeric elements."
-                )
+                    f"All elements in data-set '{label}' should have the same \
+                        dimension."
+                    )
         
-        if not np.issubdtype(na_y.dtype, np.number):
-            raise TypeError("Data-set 'y' should contain only numeric elements.")
-        if not np.isfinite(na_y).all():
+    def _all_elements_are_not_empty(self, x: Iterable[Any], label: str) -> None:
+        if np.array(x).shape[-1] == 0:
+            raise ValueError( f"No elements in data-set '{label}' should be empty." )
+    
+    def _has_only_numeric_elements(self, x: Iterable[Any], label: str) -> None:
+        if not np.issubdtype(np.array(x).dtype, np.number):
+            raise TypeError(f"Data-set '{label}' should contain only numeric elements.")
+        
+    def _has_only_finite_elements(self, x: Iterable[Any], label: str) -> None:
+        if not np.isfinite(np.array(x)).all():
             raise ValueError(
-                "Data-set 'y' should contain only finite numeric elements."
+                f"Data-set '{label}' should contain only finite numeric elements."
                 )
 
+    def _does_not_have_duplicate_elements(self, x: Iterable[Any], label: str) -> None:
         #checking for duplicates; see: https://stackoverflow.com/q/11528078
-        sorted_x = np.sort(x_data, axis=None)
+        sorted_x = np.sort(x, axis=None)
         if any(sorted_x[1:] == sorted_x[:-1]):
             raise ValueError(
-                "Found duplicate entries in data-set 'x', please clean the data and \
-                    try again."
+                f"Found duplicate elements in data-set '{label}', please clean the data\
+                    and try again."
                 )
-        
-        sorted_y = np.sort(y_data, axis=None)
-        if any(sorted_y[1:] == sorted_y[:-1]):
-            raise ValueError(
-                "Found duplicate entries in data-set 'y', please clean the data and \
-                    try again."
-                )
-        
-Network._check_data(None, {"x": [1, 2, 3, 4], "y": [1, 2, 3, 4]})
+
+#Network._check_data(None, {"x": [1, 2, 3, 4], "y": [1, 2, 3, 4]})
 #Network._check_data(None, {"x": [[1], [2], [3], [4]], "y": [[1], [2], [3], [4]]})
 #Network._check_data(None, {"x": [[np.nan], [2], [3], [4]], "y": [[1], [2], [3], [4]]})
 #Network._check_data(None, {"x": [["bad"], [2], [3], [4]], "y": [[1], [2], [3], [4]]})
 #Network._check_data(None, {"x": [[1], [2], [3], [4]], "y": [["bad"], [2], [3], [4]]})
-Network._check_data(None, {"x": [[1], [2], [3], [4]], "y": [[1], [2], [3], []]})
+#Network._check_data(None, {"x": [[1], [2], [3], [4]], "y": [[1], [2], [3], []]})
 #Network._check_data(None, {"x": [[], [], [], []], "y": [[], [], [], []]})
+
+#Network._element_dimensions(None, [1, 2, 3, 4])
+#Network._element_dimensions(None, [1, 2, 3])
+#Network._element_dimensions(None, [[1], [2], [3], [4]])
+#Network._element_dimensions(None, [[1, 1], [2], [3], [4]])
+#Network._element_dimensions(None, [[[1], [2], [3], [4]]])
+#Network._element_dimensions(None, [[[], [], [], []]])
+
+#Network._element_dimensions(None, [1, [2], [3], [4]])
+
+#Network._element_dimensions(None, [[], [], [], []])
+
+#Network._element_dimensions(None, [[[], [],]])
+
+#Network._all_elements_are_not_empty(None, [[[], [],]], "x")
+#Network._all_elements_are_not_empty(None, [[[1], [2], [3], [4]]], "x")
