@@ -1807,8 +1807,22 @@ TODO, LLM chatbot
             DONE
                 though in this case the error is about mismatched dimensions, rather than noting an empty data-set item, but it doesn't seem worth it to get that specific.
 
+            --
+
+            [07.18.24]
+
+            --
+
+            refactor to make Network._check_data call several sub-methods for each of its checks, rather than one big method
+            DONE
+
             next,
-                refactor to make Network._check_data call several sub-methods for each of its checks, rather than one big method
+            testing Network._check_data, and its subordinate methods
+            then,
+            code review on Network._check_data, and its subordinate methods
+            then,
+            redoing docstring for Network._check_data, and adding docstrings to all subordinate methods
+                
             
         then,
             more Network.training
