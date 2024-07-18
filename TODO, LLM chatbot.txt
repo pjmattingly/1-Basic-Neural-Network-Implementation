@@ -1764,23 +1764,51 @@ TODO, LLM chatbot
                     Performing these sanity checks helps to ensure the quality and reliability of your training data, which is crucial for building an effective and accurate neural network model. By addressing potential issues early, you can avoid many common pitfalls that could lead to poor model performance or training instability.
                     ```
 
+            --
+
+            [07.17.24]
+
+            --
+
+            I was assuming that data-sets "x" and "y" would be lists of lists, but it should be possible for a data-set to just be single numbers:
+                `Network._check_data(None, {"x": [1, 2, 3, 4], "y": [1, 2, 3, 4]})`
+            which fails with:
+                ```
+                Traceback (most recent call last):
+                File "D:\Github\1-Basic-Neural-Network-Implementation\1-Initialize-the-Network\init_the_network\Network.py", line 229, in <module>
+                    Network._check_data(None, {"x": [1, 2, 3, 4], "y": [1, 2, 3, 4]})
+                File "D:\Github\1-Basic-Neural-Network-Implementation\1-Initialize-the-Network\init_the_network\Network.py", line 202, in _check_data
+                    x_lengths = {len(x_sample) for x_sample in x_data}
+                                ^^^^^^^^^^^^^
+                ```
+            and so need handling for that
+
+            then checking for all numeric or all iterable data-sets, and throwing errors if there's a mix of types
+            but this makes the function way too long, and so needs some refactor into many small functions for easier readability
+
+            --
+
+            check that a list of empty lists is checked for and throws an error:
+                `Network._check_data(None, {"x": [[], [], [], []], "y": [[], [], [], []]})`
+            to check, perhaps flatten the input and look for numbers?
+
+            also checking for some items that are empty
+                which numpy seems to catch:
+
+                ```
+                Traceback (most recent call last):
+                File "D:\Github\1-Basic-Neural-Network-Implementation\1-Initialize-the-Network\init_the_network\Network.py", line 265, in <module>
+                    Network._check_data(None, {"x": [[1], [2], [3], [4]], "y": [[1], [2], [3], []]})
+                File "D:\Github\1-Basic-Neural-Network-Implementation\1-Initialize-the-Network\init_the_network\Network.py", line 186, in _check_data
+                    na_y = np.array(y_data)
+                        ^^^^^^^^^^^^^^^^
+                ValueError: setting an array element with a sequence. The requested array has an inhomogeneous shape after 1 dimensions. The detected shape was (4,) + inhomogeneous part.
+                ```
+            DONE
+                though in this case the error is about mismatched dimensions, rather than noting an empty data-set item, but it doesn't seem worth it to get that specific.
+
             next,
-                I was assuming that data-sets "x" and "y" would be lists of lists, but it should be possible for a data-set to just be single numbers:
-                    `Network._check_data(None, {"x": [1, 2, 3, 4], "y": [1, 2, 3, 4]})`
-                which fails with:
-                    ```
-                    Traceback (most recent call last):
-                    File "D:\Github\1-Basic-Neural-Network-Implementation\1-Initialize-the-Network\init_the_network\Network.py", line 229, in <module>
-                        Network._check_data(None, {"x": [1, 2, 3, 4], "y": [1, 2, 3, 4]})
-                    File "D:\Github\1-Basic-Neural-Network-Implementation\1-Initialize-the-Network\init_the_network\Network.py", line 202, in _check_data
-                        x_lengths = {len(x_sample) for x_sample in x_data}
-                                    ^^^^^^^^^^^^^
-                    ```
-                and so need handling for that eventuality
-            then,
-                check that a list of empty lists is checked for and throws an error:
-                    `Network._check_data(None, {"x": [[], [], [], []], "y": [[], [], [], []]})`                
-                to check, perhaps flatten the input and look for numbers?
+                refactor to make Network._check_data call several sub-methods for each of its checks, rather than one big method
             
         then,
             more Network.training
