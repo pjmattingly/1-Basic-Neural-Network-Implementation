@@ -123,6 +123,8 @@ class Network:
         #no early stopping criteria
 
         self._check_data(data)
+        learning_rate = self._check_and_set_learning_rate(learning_rate)
+        epochs = self._check_and_set_epochs(epochs)
 
         for _ in range(epochs):
             data = random.shuffle(data)
@@ -180,7 +182,7 @@ class Network:
 
         self._all_elements_have_the_same_shape(x_data, "x")
         self._all_elements_have_the_same_shape(y_data, "y")
-        
+
         self._has_only_numeric_elements(x_data, "x")
         self._has_only_numeric_elements(y_data, "y")
 
@@ -261,3 +263,27 @@ class Network:
                 f"Found duplicate elements in data-set '{label}', please clean the data\
                     and try again."
                 )
+        
+    def _check_and_set_learning_rate(self, learning_rate: float) -> float:
+        """
+        Validate and set the learning rate.
+
+        Parameters:
+            learning_rate (float): The learning rate to be validated and set.
+
+        Returns:
+            float: The validated learning rate.
+
+        Raises:
+            TypeError: If the learning rate is not numeric.
+            ValueError: If the learning rate is not between 0 and 1 inclusive.
+        """
+        
+        if not isinstance(learning_rate, (int, float)):
+            raise TypeError("The learning rate should be numeric.")
+        
+        if not 0 <= learning_rate <= 1:
+            raise ValueError("The learning rate should be great than or equal to 0 and \
+                            less than or equal to 1.")
+        
+        return float(learning_rate)
