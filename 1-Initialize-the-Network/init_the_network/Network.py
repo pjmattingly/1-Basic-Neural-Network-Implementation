@@ -127,13 +127,15 @@ class Network:
         epochs = self._check_and_set_epochs(epochs)
 
         for _ in range(epochs):
-            data = random.shuffle(data)
+            _x = random.shuffle(data[x])
+            _y = random.shuffle(data[x])
+            data = 
 
-            outputs = [self.forward_pass(x) for x in data[x]]
+            outputs = [self.forward_pass(x) for x in _x]
 
-            _log_accuracy(results, data[y])
+            self._log_accuracy(results, _y)
 
-            losses = loss_calc(results, data[y])
+            losses = self._loss_calc(results, _y)
 
             #logging loss
             print(losses)
