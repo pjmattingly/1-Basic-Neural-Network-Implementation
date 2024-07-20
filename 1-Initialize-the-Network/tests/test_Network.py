@@ -376,3 +376,16 @@ class Test_check_data:
 
         with pytest.raises(ValueError):
             inst._check_data(test_var)
+
+class Test_check_and_set_learning_rate:
+    def test_correct(self, inst):
+        inst._check_and_set_learning_rate(1)
+        assert True
+
+    def test_not_numeric_input(self, inst):
+        with pytest.raises(TypeError):
+            inst._check_and_set_learning_rate("q")
+
+    def test_out_of_range_input(self, inst):
+        with pytest.raises(ValueError):
+            inst._check_and_set_learning_rate(2)
