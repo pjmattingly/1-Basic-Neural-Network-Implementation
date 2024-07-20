@@ -389,3 +389,16 @@ class Test_check_and_set_learning_rate:
     def test_out_of_range_input(self, inst):
         with pytest.raises(ValueError):
             inst._check_and_set_learning_rate(2)
+
+class Test_check_and_set_epochs:
+    def test_correct(self, inst):
+        inst._check_and_set_epochs(0)
+        assert True
+
+    def test_not_numeric_input(self, inst):
+        with pytest.raises(TypeError):
+            inst._check_and_set_epochs("q")
+
+    def test_out_of_range_input(self, inst):
+        with pytest.raises(ValueError):
+            inst._check_and_set_epochs(-1)
