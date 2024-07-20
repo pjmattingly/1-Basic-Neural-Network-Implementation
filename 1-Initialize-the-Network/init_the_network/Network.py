@@ -173,11 +173,11 @@ class Network:
 
         self._is_iterable(x_data, "x")
         self._is_iterable(y_data, "y")
-        
-        self._x_and_y_have_equal_size(x_data, y_data)
 
         self._x_and_y_not_empty(x_data, y_data)
-
+        
+        self._x_and_y_have_equal_size(x_data, y_data)
+        
         self._all_elements_have_the_same_shape(x_data, "x")
         self._all_elements_have_the_same_shape(y_data, "y")
 
