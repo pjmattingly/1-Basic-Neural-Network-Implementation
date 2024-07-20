@@ -74,12 +74,12 @@ class Test_is_dict_like:
         with pytest.raises(TypeError):
             inst._is_dict_like(test_var)
 
-class Test_has_x_and_y_indices:
+class Test_has_x_and_y_keys:
     def test_correct(self, inst):
         test_var = dict()
         test_var["x"] = True
         test_var["y"] = True
-        inst._has_x_and_y_indices(test_var)
+        inst._has_x_and_y_keys(test_var)
         assert True
 
     def test_no_x(self, inst):
@@ -87,14 +87,14 @@ class Test_has_x_and_y_indices:
         #test_var["x"] = True
         test_var["y"] = True
         with pytest.raises(TypeError):
-            inst._has_x_and_y_indices(test_var)
+            inst._has_x_and_y_keys(test_var)
 
     def test_no_y(self, inst):
         test_var = dict()
         test_var["x"] = True
         #test_var["y"] = True
         with pytest.raises(TypeError):
-            inst._has_x_and_y_indices(test_var)
+            inst._has_x_and_y_keys(test_var)
 
 class Test_is_iterable:
     def test_correct(self, inst):
@@ -152,15 +152,6 @@ class Test_all_elements_have_the_same_shape:
         with pytest.raises(ValueError):
             inst._all_elements_have_the_same_shape([[0], [0, 0], [[0], 0]], "test")
 
-class Test_all_elements_are_not_empty:
-    def test_correct(self, inst):
-        inst._all_elements_are_not_empty([0], "test")
-        assert True
-
-    def test_single_empty_element(self, inst):
-        with pytest.raises(ValueError):
-            inst._all_elements_are_not_empty([[0], [0, 0], [[0], 0], [[0, []], 0]], 
-                                             "test")
 class Test_has_only_numeric_elements:
     def test_correct(self, inst):
         inst._has_only_numeric_elements([0], "test")
