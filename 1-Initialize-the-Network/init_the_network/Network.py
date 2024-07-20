@@ -177,7 +177,7 @@ class Network:
         self._x_and_y_not_empty(x_data, y_data)
         
         self._x_and_y_have_equal_size(x_data, y_data)
-        
+
         self._all_elements_have_the_same_shape(x_data, "x")
         self._all_elements_have_the_same_shape(y_data, "y")
 
@@ -250,27 +250,3 @@ class Network:
                 f"Found duplicate elements in data-set '{label}', please clean the data\
                     and try again."
                 )
-
-#Network._check_data(None, {"x": [1, 2, 3, 4], "y": [1, 2, 3, 4]})
-#Network._check_data(None, {"x": [[1], [2], [3], [4]], "y": [[1], [2], [3], [4]]})
-#Network._check_data(None, {"x": [[np.nan], [2], [3], [4]], "y": [[1], [2], [3], [4]]})
-#Network._check_data(None, {"x": [["bad"], [2], [3], [4]], "y": [[1], [2], [3], [4]]})
-#Network._check_data(None, {"x": [[1], [2], [3], [4]], "y": [["bad"], [2], [3], [4]]})
-#Network._check_data(None, {"x": [[1], [2], [3], [4]], "y": [[1], [2], [3], []]})
-#Network._check_data(None, {"x": [[], [], [], []], "y": [[], [], [], []]})
-
-#Network._element_dimensions(None, [1, 2, 3, 4])
-#Network._element_dimensions(None, [1, 2, 3])
-#Network._element_dimensions(None, [[1], [2], [3], [4]])
-#Network._element_dimensions(None, [[1, 1], [2], [3], [4]])
-#Network._element_dimensions(None, [[[1], [2], [3], [4]]])
-#Network._element_dimensions(None, [[[], [], [], []]])
-
-#Network._element_dimensions(None, [1, [2], [3], [4]])
-
-#Network._element_dimensions(None, [[], [], [], []])
-
-#Network._element_dimensions(None, [[[], [],]])
-
-#Network._all_elements_are_not_empty(None, [[[], [],]], "x")
-#Network._all_elements_are_not_empty(None, [[[1], [2], [3], [4]]], "x")
