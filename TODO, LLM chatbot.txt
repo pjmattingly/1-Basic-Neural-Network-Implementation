@@ -1823,18 +1823,35 @@ TODO, LLM chatbot
             --
 
             testing Network._check_data, and its subordinate methods
+            DONE
+
+            --
+
+            [07.20.24]
+
+            --
+
+            code review on Network._check_data, and its subordinate methods
+            DONE
+
+            redoing docstring for Network._check_data, and adding docstrings to all subordinate methods
+            DONE
+
+            --
+
+            adding checks for the "epochs" and "learning rate" parameters.
             
             next,
-            code review on Network._check_data, and its subordinate methods
-            then,
-            redoing docstring for Network._check_data, and adding docstrings to all subordinate methods
-                
+            Network._log_accuracy
+            and
+            Network._loss_calc
             
-        then,
-            more Network.training
-            reference header "then, checking `Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep learning. MIT press.` to verify" for implementation details of the training method.
-            And see file titled "### Implementation Details for the "Training" Method in the `Network` Class" for overview of how to implement Network.training
-            And see pseudo code in Network.training method placeholder
+            then,
+            moving on to Network_backward_pass
+                reference header "then, checking `Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep learning. MIT press.` to verify" for implementation details of the training method.
+                And see file titled "### Implementation Details for the "Training" Method in the `Network` Class" for overview of how to implement Network.training
+                And see pseudo code in Network.training method placeholder
+            
 
 ----------------
 
@@ -1851,6 +1868,16 @@ TODO
 ----------------
 
 NOTE
+    Note, handy discussion of how to experiment with and settle on a learning rate or at least an initial learning rate
+        see:
+        https://ai.stackexchange.com/questions/26502/is-there-an-ideal-range-of-learning-rate-which-always-gives-a-good-result-almost
+
+        and:
+        https://stackoverflow.com/questions/42966393/is-it-good-learning-rate-for-adam-method
+        (for its visualizations)
+    
+    --
+    
     Note, helpful Neuron visualization diagram
         see:
         https://www.researchgate.net/figure/A-diagram-to-show-the-work-of-a-neuron-input-x-weights-w-bias-b-activation-function-f_fig1_323775654
