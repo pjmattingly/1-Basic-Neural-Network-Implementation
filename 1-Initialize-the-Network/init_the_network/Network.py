@@ -166,7 +166,7 @@ class Network:
 
         self._is_dict_like(data)
 
-        self._has_x_and_y_indices(data)
+        self._has_x_and_y_keys(data)
         
         x_data = data.get("x")
         y_data = data.get("y")
@@ -181,8 +181,8 @@ class Network:
         self._all_elements_have_the_same_shape(x_data, "x")
         self._all_elements_have_the_same_shape(y_data, "y")
 
-        self._all_elements_are_not_empty(x_data, "x")
-        self._all_elements_are_not_empty(y_data, "y")
+        #self._all_elements_are_not_empty(x_data, "x")
+        #self._all_elements_are_not_empty(y_data, "y")
 
         self._has_only_numeric_elements(x_data, "x")
         self._has_only_numeric_elements(y_data, "y")
@@ -194,11 +194,15 @@ class Network:
         self._does_not_have_duplicate_elements(y_data, "y")
     
     def _is_dict_like(self, data: Dict[str, Any]) -> None:
+        """Check if the data is dictionary-like."""
+
         if not callable(getattr(data, "get", None)):
             raise TypeError( "Data object should contain a method 'get' to fetch a set \
                             of data." )
         
-    def _has_x_and_y_indices(self, data: Dict[str, Any]) -> None:
+    def _has_x_and_y_keys(self, data: Dict[str, Any]) -> None:
+        """Check if the data contains 'x' and 'y' keys."""
+
         if data.get("x") is None:
             raise TypeError( "Data should contain a key of 'x'." )
 
@@ -206,20 +210,28 @@ class Network:
             raise TypeError( "Data should contain a key of 'y'." )
         
     def _is_iterable(self, x: Any, label: str) -> None:
+        """Check if the object is iterable."""
+
         try:
             iter(x)
         except TypeError:
             raise TypeError(f"Dataset '{label}' should be an iterable.")
         
-    def _x_and_y_have_equal_size(self, x: Iterable[Any], y: Iterable[Any]) -> None:
-        if not len(x) == len(y):
-            raise ValueError("Data-sets 'x' and 'y' should be the same size.")
-        
     def _x_and_y_not_empty(self, x: Iterable[Any], y: Iterable[Any]) -> None:
+        """Check if datasets 'x' and 'y' are non-empty."""
+
         if len(x) == 0 or len(y) == 0:
             raise ValueError("Data-sets 'x' or 'y' should not be empty.")
 
+    def _x_and_y_have_equal_size(self, x: Iterable[Any], y: Iterable[Any]) -> None:
+        """Check if datasets 'x' and 'y' have equal size."""
+        
+        if not len(x) == len(y):
+            raise ValueError("Data-sets 'x' and 'y' should be the same size.")
+
     def _all_elements_have_the_same_shape(self, x: Iterable[Any], label: str) -> None:
+        """Check if all elements in the dataset have the same shape."""
+
         try:
             np.array(x)
         except ValueError:
@@ -227,22 +239,24 @@ class Network:
                     f"All elements in data-set '{label}' should have the same \
                         dimension."
                     )
-        
-    def _all_elements_are_not_empty(self, x: Iterable[Any], label: str) -> None:
-        if np.array(x).shape[-1] == 0:
-            raise ValueError( f"No elements in data-set '{label}' should be empty." )
     
     def _has_only_numeric_elements(self, x: Iterable[Any], label: str) -> None:
+        """Check if all elements in the dataset are numeric."""
+
         if not np.issubdtype(np.array(x).dtype, np.number):
             raise TypeError(f"Data-set '{label}' should contain only numeric elements.")
         
     def _has_only_finite_elements(self, x: Iterable[Any], label: str) -> None:
+        """Check if all elements in the dataset are finite."""
+
         if not np.isfinite(np.array(x)).all():
             raise ValueError(
                 f"Data-set '{label}' should contain only finite numeric elements."
                 )
 
     def _does_not_have_duplicate_elements(self, x: Iterable[Any], label: str) -> None:
+        """Check if there are no duplicate elements in the dataset."""
+        
         #checking for duplicates; see: https://stackoverflow.com/q/11528078
         sorted_x = np.sort(x, axis=None)
         if any(sorted_x[1:] == sorted_x[:-1]):
