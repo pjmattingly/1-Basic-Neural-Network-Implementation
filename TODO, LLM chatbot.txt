@@ -1816,9 +1816,15 @@ TODO, LLM chatbot
             refactor to make Network._check_data call several sub-methods for each of its checks, rather than one big method
             DONE
 
-            next,
+            --
+
+            [07.19.24]
+
+            --
+
             testing Network._check_data, and its subordinate methods
-            then,
+            
+            next,
             code review on Network._check_data, and its subordinate methods
             then,
             redoing docstring for Network._check_data, and adding docstrings to all subordinate methods
