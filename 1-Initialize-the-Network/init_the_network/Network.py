@@ -180,10 +180,7 @@ class Network:
 
         self._all_elements_have_the_same_shape(x_data, "x")
         self._all_elements_have_the_same_shape(y_data, "y")
-
-        #self._all_elements_are_not_empty(x_data, "x")
-        #self._all_elements_are_not_empty(y_data, "y")
-
+        
         self._has_only_numeric_elements(x_data, "x")
         self._has_only_numeric_elements(y_data, "y")
 
@@ -256,7 +253,7 @@ class Network:
 
     def _does_not_have_duplicate_elements(self, x: Iterable[Any], label: str) -> None:
         """Check if there are no duplicate elements in the dataset."""
-        
+
         #checking for duplicates; see: https://stackoverflow.com/q/11528078
         sorted_x = np.sort(x, axis=None)
         if any(sorted_x[1:] == sorted_x[:-1]):
