@@ -287,3 +287,27 @@ class Network:
                             less than or equal to 1.")
         
         return float(learning_rate)
+    
+    def _check_and_set_epochs(self, epochs: int) -> int:
+        """
+        Validate and set the number of epochs.
+
+        Parameters:
+            epochs (int): The number of epochs to be validated and set.
+
+        Returns:
+            int: The validated number of epochs.
+
+        Raises:
+            TypeError: If the 'epochs' parameter is not an integer.
+            ValueError: If the 'epochs' parameter is less than zero.
+        """
+        
+        if not isinstance(epochs, int):
+            raise TypeError("The 'epochs' parameter should be an integer.")
+        
+        if not 0 <= epochs:
+            raise ValueError("The 'epochs' parameter should be greater than or equal \
+                             to zero.")
+        
+        return epochs
