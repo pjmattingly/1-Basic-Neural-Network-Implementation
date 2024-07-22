@@ -1860,6 +1860,20 @@ TODO, LLM chatbot
             next,
                 testing for Network._loss_calc
             then,
+                first live testing
+                    TODO, generate randomized data fit to a linear equation, so that it can be used for training the Network
+                    since Mean Squared Error is being used for the loss function, then the problem the Network is being configured to solve should be regression
+                        see:
+                        https://www.datacamp.com/tutorial/loss-function-in-machine-learning
+                    and
+                    TODO, setup random "seed" for Neuron, Layer, and Network, so we can get reproducable results when testing
+                        see:
+                        https://github.com/pjmattingly/1-Basic-Neural-Network-Implementation/tree/main/1-Initialize-the-Network#practical-tips
+                    and
+                    do forward pass and loss calculation just to make sure everything works
+                        + add testing that duplicates this process
+
+            then,
                 Network._log_accuracy ?
                     can we do something useful here with a regression problem?
             
@@ -1873,21 +1887,14 @@ TODO, LLM chatbot
 ----------------
 
 TODO
-    TODO, generate randomized data fit to a linear equation, so that it can be used for training the Network
-        since Mean Squared Error is being used for the loss function, then the problem the Network is being configured to solve should be regression
-            see:
-            https://www.datacamp.com/tutorial/loss-function-in-machine-learning
-
-    --
-
-    TODO, setup random "seed" for Neuron, Layer, and Network, so we can get reproducable results when testing
-        see:
-        https://github.com/pjmattingly/1-Basic-Neural-Network-Implementation/tree/main/1-Initialize-the-Network#practical-tips
+    TODO, double check previous reading, do we want to vary the learning rate over multiple epochs?
 
     --
 
     TODO, for the BackProp part, see `Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep learning. MIT press.`
         5.3. Error Backpropagation, pg 241
+
+
 
 ----------------
 
