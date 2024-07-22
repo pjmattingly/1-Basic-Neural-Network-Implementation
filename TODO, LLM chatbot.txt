@@ -1840,11 +1840,28 @@ TODO, LLM chatbot
             --
 
             adding checks for the "epochs" and "learning rate" parameters.
+
+            --
+
+            [07.21.24]
+
+            --
+
+            Network._loss_calc
+                refreshing on loss
+                    see:
+                    https://www.datacamp.com/tutorial/loss-function-in-machine-learning
+
+                and so we can do MSE, which means our data should be solvable as a regression problem
+            DONE
+
+
             
             next,
-            Network._log_accuracy
-            and
-            Network._loss_calc
+                testing for Network._loss_calc
+            then,
+                Network._log_accuracy ?
+                    can we do something useful here with a regression problem?
             
             then,
             moving on to Network_backward_pass
@@ -1856,6 +1873,13 @@ TODO, LLM chatbot
 ----------------
 
 TODO
+    TODO, generate randomized data fit to a linear equation, so that it can be used for training the Network
+        since Mean Squared Error is being used for the loss function, then the problem the Network is being configured to solve should be regression
+            see:
+            https://www.datacamp.com/tutorial/loss-function-in-machine-learning
+
+    --
+
     TODO, setup random "seed" for Neuron, Layer, and Network, so we can get reproducable results when testing
         see:
         https://github.com/pjmattingly/1-Basic-Neural-Network-Implementation/tree/main/1-Initialize-the-Network#practical-tips
@@ -1877,7 +1901,7 @@ NOTE
         (for its visualizations)
     
     --
-    
+
     Note, helpful Neuron visualization diagram
         see:
         https://www.researchgate.net/figure/A-diagram-to-show-the-work-of-a-neuron-input-x-weights-w-bias-b-activation-function-f_fig1_323775654
