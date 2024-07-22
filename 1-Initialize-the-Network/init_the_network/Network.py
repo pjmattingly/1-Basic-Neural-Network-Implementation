@@ -217,12 +217,14 @@ class Network:
         except TypeError:
             raise TypeError(f"Dataset '{label}' should be an iterable.")
         
+    #TODO, modify error message to be more generic, as this called in Network._loss_calc
     def _x_and_y_not_empty(self, x: Iterable[Any], y: Iterable[Any]) -> None:
         """Check if datasets 'x' and 'y' are non-empty."""
 
         if len(x) == 0 or len(y) == 0:
             raise ValueError("Data-sets 'x' or 'y' should not be empty.")
 
+    #TODO, modify error message to be more generic, as this called in Network._loss_calc
     def _x_and_y_have_equal_size(self, x: Iterable[Any], y: Iterable[Any]) -> None:
         """Check if datasets 'x' and 'y' have equal size."""
         
@@ -331,10 +333,15 @@ class Network:
         #Variable `target` was checked with Network._check_data, but the output values 
         # from the Network (observed values) need to be checked before processing.
         self._is_iterable(observed, "observed")
+        self._is_iterable(target, "target")
+        self._x_and_y_not_empty(observed, target)
         self._x_and_y_have_equal_size(observed, target)
         self._all_elements_have_the_same_shape(observed, "observed")
+        self._all_elements_have_the_same_shape(target, "target")
         self._has_only_numeric_elements(observed, "observed")
+        self._has_only_numeric_elements(target, "target")
         self._has_only_finite_elements(observed, "observed")
+        self._has_only_finite_elements(target, "target")
 
         return self._calculate_MSE(observed, target)
 
