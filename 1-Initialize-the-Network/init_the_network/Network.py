@@ -128,8 +128,7 @@ class Network:
 
         for _ in range(epochs):
             _x = random.shuffle(data[x])
-            _y = random.shuffle(data[x])
-            data = 
+            _y = random.shuffle(data[y])
 
             outputs = [self.forward_pass(x) for x in _x]
 
@@ -313,3 +312,44 @@ class Network:
                              to zero.")
         
         return epochs
+    
+    def _loss_calc(self, observed: Iterable[Any], target: Iterable[Any]) -> float:
+        """
+        Validate observed values and calculate the Mean Squared Error (MSE).
+
+        Parameters:
+            observed (Iterable[Any]): Observed values from the network.
+            target (Iterable[Any]): Target values for comparison.
+
+        Returns:
+            float: The calculated Mean Squared Error.
+
+        Raises:
+            TypeError, ValueError: If validation checks fail on the observed values.
+        """
+
+        #Variable `target` was checked with Network._check_data, but the output values 
+        # from the Network (observed values) need to be checked before processing.
+        self._is_iterable(observed, "observed")
+        self._x_and_y_have_equal_size(observed, target)
+        self._all_elements_have_the_same_shape(observed, "observed")
+        self._has_only_numeric_elements(observed, "observed")
+        self._has_only_finite_elements(observed, "observed")
+
+        return self._calculate_MSE(observed, target)
+
+    def _calculate_MSE(self, y: Iterable[Any], y_bar: Iterable[Any]) -> float:
+        """
+        Calculate the Mean Squared Error (MSE) between two sets of values.
+
+        Parameters:
+            y (Iterable[Any]): The predicted values.
+            y_bar (Iterable[Any]): The true values.
+
+        Returns:
+            float: The Mean Squared Error.
+        """
+
+        #see: https://www.datacamp.com/tutorial/loss-function-in-machine-learning
+        #and: https://stackoverflow.com/a/47374870
+        return np.square(np.subtract(np.array(y), np.array(y_bar))).mean()
