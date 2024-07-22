@@ -44,5 +44,3 @@ def mock_data(seed: int = 0, num_samples: int = 1000, sigma: int=10) -> List[Tup
     ]
     
     return noisy_data
-
-print(mock_data()[0])
