@@ -287,7 +287,7 @@ class Test_check_data:
         test_var["y"] = []
 
         with pytest.raises(ValueError):
-            inst._x_and_y_not_empty([], [])
+            inst._check_data(test_var)
 
     def test_different_sizes(self, inst):
         test_var = dict()
@@ -402,3 +402,108 @@ class Test_check_and_set_epochs:
     def test_out_of_range_input(self, inst):
         with pytest.raises(ValueError):
             inst._check_and_set_epochs(-1)
+
+class Test_loss_calc:
+    def test_correct(self, inst):
+        x = [0, 1]
+        y = [[0], [1]]
+        inst._loss_calc(x, y)
+        assert True
+
+    def test_not_iterable_x(self, inst):
+        x = True
+        y = list()
+
+        with pytest.raises(TypeError):
+            inst._loss_calc(x, y)
+
+    def test_not_iterable_y(self, inst):
+        x = list()
+        y = True
+
+        with pytest.raises(TypeError):
+            inst._loss_calc(x, y)
+
+    def test_not_iterable_both(self, inst):
+        x = True
+        y = True
+
+        with pytest.raises(TypeError):
+            inst._loss_calc(x, y)
+
+    def test_first_empty(self, inst):
+        x = []
+        y = [0]
+
+        with pytest.raises(ValueError):
+            inst._loss_calc(x, y)
+
+    def test_second_empty(self, inst):
+        x = [0]
+        y = []
+
+        with pytest.raises(ValueError):
+            inst._loss_calc(x, y)
+
+    def test_both_empty(self, inst):
+        x = []
+        y = []
+
+        with pytest.raises(ValueError):
+            inst._loss_calc(x, y)
+
+    def test_one_is_a_number(self, inst):
+        x = [0, [0]]
+        y = [0, 1]
+
+        with pytest.raises(ValueError):
+            inst._loss_calc(x, y)
+
+    def test_different_sized_iterables(self, inst):
+        x = [[0], [0, 0], [[0], 0]]
+        y = [0, 1, 2]
+
+        with pytest.raises(ValueError):
+            inst._loss_calc(x, y)
+
+    def test_single_empty_element(self, inst):
+        x = [[0], [1], [2], [3], []]
+        y = [0, 1, 2, 3, 4]
+
+        with pytest.raises(ValueError):
+            inst._loss_calc(x, y)
+
+    def test_nonnumeric_input_1(self, inst):
+        x = ["a", "b", "c"]
+        y = [0, 1, 2]
+
+        with pytest.raises(TypeError):
+            inst._loss_calc(x, y)
+
+    def test_nonnumeric_input_2(self, inst):
+        x = [1, 2, "c"]
+        y = [0, 1, 2]
+
+        with pytest.raises(TypeError):
+            inst._loss_calc(x, y)
+
+    def test_nonnumeric_input_3(self, inst):
+        x = [1, 2, None]
+        y = [0, 1, 2]
+
+        with pytest.raises(TypeError):
+            inst._loss_calc(x, y)
+
+    def test_special_nonnumeric_input_1(self, inst):
+        x = [1, 2, np.inf]
+        y = [0, 1, 2]
+
+        with pytest.raises(ValueError):
+            inst._loss_calc(x, y)
+
+    def test_special_nonnumeric_input_2(self, inst):
+        x = [1, 2, np.nan]
+        y = [0, 1, 2]
+
+        with pytest.raises(ValueError):
+            inst._loss_calc(x, y)
