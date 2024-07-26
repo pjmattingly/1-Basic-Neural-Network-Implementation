@@ -1,4 +1,3 @@
-import random
 from typing import List
 import numbers
 import numpy as np
@@ -12,15 +11,19 @@ class Neuron:
         bias (float): Bias term added to the weighted sum of inputs.
     """
 
-    def __init__(self, inputs : int):
+    def __init__(self, inputs : int, 
+                 seed : None | int | float | str | bytes | bytearray = None):
         """
         Initialize a Neuron with a specified number of inputs.
 
         Parameters:
             inputs (int): The number of input connections to the neuron.
+            seed (None | int | float | str | bytes | bytearray): \
+                Seed for random number generation.
 
         Raises:
-            TypeError: If 'inputs' is not an integer.
+            TypeError: If 'inputs' is not an integer or \
+                if 'seed' is of an incorrect type.
             ValueError: If 'inputs' is a negative integer.
         """
 
@@ -28,6 +31,13 @@ class Neuron:
             raise TypeError("Argument 'inputs' must be an integer.")
         if inputs < 0:
             raise ValueError("Argument 'inputs' must be a non-negative integer.")
+        
+        if seed is not None:
+            if not isinstance(inputs, (int, float, str, bytes, bytearray)):
+                raise TypeError("Argument 'seed' must be an integer, real number, \
+                                string, bytes, None, or type `bytearray`.")
+
+            np.random.seed(seed)
         
         self._weights = np.random.rand(inputs)
         self._bias = 0
