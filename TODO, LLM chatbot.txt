@@ -1885,8 +1885,15 @@ TODO, LLM chatbot
 
                     --
 
-                    next,
+                    [07.27.24]
+
+                    --
+
                     add testing for Neuron.__init__ and its new `seed` parameter
+                    DONE
+
+                    then adding calls to Layer and Network to pass along `seed` values starting from Network, then to Layer, then to the component Neurons
+                DONE
             
             next,
                 do forward pass and loss calculation just to make sure everything works
