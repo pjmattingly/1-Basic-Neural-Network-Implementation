@@ -33,7 +33,7 @@ class Neuron:
             raise ValueError("Argument 'inputs' must be a non-negative integer.")
         
         if seed is not None:
-            if not isinstance(inputs, (int, float, str, bytes, bytearray)):
+            if not isinstance(seed, (int, float, str, bytes, bytearray)):
                 raise TypeError("Argument 'seed' must be an integer, real number, \
                                 string, bytes, None, or type `bytearray`.")
 
