@@ -16,6 +16,16 @@ class Test__init__:
         with pytest.raises(ValueError):
             Neuron(-1)
 
+    def test_correct(self):
+        Neuron(1)
+
+    def test_seed_correct(self):
+        Neuron(1, 0)
+
+    def test_seed_bsd_input(self):
+        with pytest.raises(TypeError):
+            Neuron(1, list())
+    
 class Test_relu:
     def test_bad_input(self, inst):
         with pytest.raises(TypeError):
