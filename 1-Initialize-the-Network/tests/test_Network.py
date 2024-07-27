@@ -24,6 +24,14 @@ class Test__init__:
         with pytest.raises(ValueError):
             Network([-1])
 
+    def test_correct(self):
+        Network([3, 3, 1])
+        assert True
+    
+    def test_bad_seed(self):
+        with pytest.raises(TypeError):
+            Network([3, 3, 1], seed=list())
+
 class Test_forward_pass:
     def test_string_input(self, inst):
         with pytest.raises(TypeError):
