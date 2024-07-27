@@ -23,6 +23,14 @@ class Test__init__:
         with pytest.raises(ValueError):
             Layer(3, -1)
 
+    def test_correct(self):
+        Layer(3, 3, seed=0)
+        assert True
+
+    def test_correct(self):
+        with pytest.raises(TypeError):
+            Layer(3, 3, seed=list())
+    
 class Test_forward_pass:
     def test_string_input(self, inst):
         with pytest.raises(TypeError):
