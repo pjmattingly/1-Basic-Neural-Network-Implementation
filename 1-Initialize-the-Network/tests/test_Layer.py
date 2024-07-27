@@ -27,7 +27,7 @@ class Test__init__:
         Layer(3, 3, seed=0)
         assert True
 
-    def test_correct(self):
+    def test_bad_seed(self):
         with pytest.raises(TypeError):
             Layer(3, 3, seed=list())
     
