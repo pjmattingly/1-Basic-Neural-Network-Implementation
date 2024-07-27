@@ -15,7 +15,8 @@ class Network:
         _network (List[Layer]): List of layers in the neural network.
     """
 
-    def __init__(self, architecture : List[int]):
+    def __init__(self, architecture : List[int], 
+                 seed : None | int | float | str | bytes | bytearray = None):
         """
         Initialize the neural network based on the provided architecture.
 
@@ -54,15 +55,20 @@ class Network:
                 "Argument 'architecture' must be an iterable of non-negative integers."
                 )
         
+        if seed is not None:
+            if not isinstance(seed, (int, float, str, bytes, bytearray)):
+                raise TypeError("Argument 'seed' must be an integer, real number, \
+                                string, bytes, None, or type `bytearray`.")
+        
         self._network = list()
         for i, num_neurons in enumerate(architecture):
             if i == 0:
                 #In the input layer each Neuron only has a single input.
-                self._network.append( Layer(1, num_neurons) )
+                self._network.append( Layer(1, num_neurons, seed) )
             else:
                 #each subsequent layer has inputs equal to the number of Neurons in \
                 # the previous layer.
-                self._network.append( Layer(architecture[i-1], num_neurons) )
+                self._network.append( Layer(architecture[i-1], num_neurons, seed) )
     
     def forward_pass(self, inputs : List[float]) -> List[float]:
         """
