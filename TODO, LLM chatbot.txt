@@ -1872,18 +1872,34 @@ TODO, LLM chatbot
                     see:
                     https://www.datacamp.com/tutorial/loss-function-in-machine-learning
                 DONE
-            
-            next,
+
+                --
+
+                [07.26.24]
+
+                --
+
                 TODO, setup random "seed" for Neuron, Layer, and Network, so we can get reproducable results when testing
                     see:
                     https://github.com/pjmattingly/1-Basic-Neural-Network-Implementation/tree/main/1-Initialize-the-Network#practical-tips
-                and
+
+                    --
+
+                    next,
+                    add testing for Neuron.__init__ and its new `seed` parameter
+            
+            next,
                 do forward pass and loss calculation just to make sure everything works
                     + add testing that duplicates this process
 
             then,
                 Network._log_accuracy ?
                     can we do something useful here with a regression problem?
+
+                    --
+
+                    it might be useful to compare the output of the network against the known values of the linear equation that the network is attempting to fit to
+                    maybe a least-squares fit over a sampling of points ran through the network, and then comparing fit to the linear equation from which the training data is drawn?
             
             then,
             moving on to Network_backward_pass
