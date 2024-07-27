@@ -15,16 +15,20 @@ class Layer:
         _neurons (List[Neuron]): List of neurons in the layer.
     """
 
-    def __init__(self, inputs : int, size : int):
+    def __init__(self, inputs : int, size : int, 
+                 seed : None | int | float | str | bytes | bytearray = None):
         """
-        Initialize a neural layer.
+        Initialize a layer of a neural network.
 
         Parameters:
             inputs (int): Number of input connections to each neuron.
             size (int): Number of neurons in the layer.
+            seed (None | int | float | str | bytes | bytearray): \
+                Seed for random number generation.
 
         Raises:
-            TypeError: If 'inputs' or 'size' is not an integer.
+            TypeError: If 'inputs' or 'size' is not an integer, \
+                or if 'seed' is of an incorrect type.
             ValueError: If 'inputs' or 'size' is a negative integer.
         """
 
@@ -38,8 +42,13 @@ class Layer:
         if size < 0:
             raise ValueError("Argument 'size' must be a non-negative integer.")
         
+        if seed is not None:
+            if not isinstance(seed, (int, float, str, bytes, bytearray)):
+                raise TypeError("Argument 'seed' must be an integer, real number, \
+                                string, bytes, None, or type `bytearray`.")
+        
         self._num_inputs = inputs
-        self._neurons = [Neuron(self._num_inputs) for _ in range(size)]
+        self._neurons = [Neuron(self._num_inputs, seed) for _ in range(size)]
 
     def forward_pass(self, inputs : List[float]) -> List[float]:
         """
